@@ -1,5 +1,3 @@
-# Design Concepts
-
 ## Concept 1 / Line Clock
 
 Inspiration came from the fact that time has multiple directions depending how you may interpret it. In this design each measurement of time is given a different direction, with every second/minute/hour/day/month added into 'time', the link tick moves relative units along its direction.
