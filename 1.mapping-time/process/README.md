@@ -4,7 +4,7 @@ Inspiration came from the fact that time has multiple directions depending how y
 
 *Related retinal variables: Position & Texture*
 
-![](Sketch1.jpg)
+<!--![](Sketch1.jpg)-->
 
 ## Concept 2 / Beating Dots
 
@@ -12,7 +12,7 @@ Overlapping each circle on top of each other, as time proceeds forward each arc 
 
 *Related retinal variables: Shape & Size*
 
-![](Sketch2.jpg)
+<!--![](Sketch2.jpg)-->
 
 ## Concept 3 / Basic Clock
 
@@ -20,4 +20,4 @@ Similar to a sand clock, each day starts with a fully colored 12*12 square, for 
 
 *Related retinal variables: Shape & Hue*
 
-![](Sketch3.jpg)
+<!--![](Sketch3.jpg)-->
