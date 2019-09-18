@@ -1,4 +1,4 @@
-## Concept 2 / Month of the Year (value) & Day of the Month (Position)
+## Concept 1 / Month of the Year (value) & Day of the Month (Position)
 
 Each month is represented by a different value. When it moves into each month, the duplicated circle represents which day of the month we are currently at, eg. 5 duplicated circles---> 5th day of the month. Duplicated circles carry the same value/color as the month they belong to.
 
@@ -6,16 +6,16 @@ Each month is represented by a different value. When it moves into each month, t
 
 ![](sketch1.jpg)
 
-![](sketch1.1_Third day of Jan.jpg)
+![](sketch1.1_ThirdDayofJan.jpg)
 Third Day of January
 
-![](sketch1.2_End of Jan.jpg)
+![](sketch1.2_EndofJan.jpg)
 End of January
 
-![](sketch1.3_16th day of March.jpg)
+![](sketch1.3_16thDayofMarch.jpg)
 16th day of March
 
-![](sketch1.4_10th day of October.jpg)
+![](sketch1.4_10thDayofOctober.jpg)
 10th day of October
 
 ## Concept 2 / Month of the Year (Sizes) & Quater of the Year (Hue)
