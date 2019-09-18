@@ -8,7 +8,7 @@ var mRot = 0
 var sRot = 0
 
 function draw() {
-  var now = clock()
+  var now = clock(),
 
   // set rotational speed limits for each polygon independently
   var hMax = PI/14;

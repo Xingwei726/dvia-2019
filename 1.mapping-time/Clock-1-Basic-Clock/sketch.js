@@ -4,6 +4,7 @@ function setup() {
 } 
 
 function draw() { 
+  var now = clock();
   //background color
   background(255);
   
@@ -22,26 +23,26 @@ function draw() {
   //second proceeding blocks
   fill(255);
   noStroke();
-  rect(0,0,50*second(),50)
-  rect(0,50,-600+(50*second()),50)
-  rect(0,100,-1200+(50*second()),50)
-  rect(0,150,-1800+(50*second()),50)
-  rect(0,200,-2400+(50*second()),50)
+  rect(0,0,50*now.sec,50)
+  rect(0,50,-600+(50*now.sec),50)
+  rect(0,100,-1200+(50*now.sec),50)
+  rect(0,150,-1800+(50*now.sec),50)
+  rect(0,200,-2400+(50*now.sec),50)
 
   //minute proceeding blocks
   fill(255);
   noStroke();
   rect(0,250,50*minute(),50)
-  rect(0,300,-600+(50*minute()),50)
-  rect(0,350,-1200+(50*minute()),50)
-  rect(0,400,-1800+(50*minute()),50)
-  rect(0,450,-2400+(50*minute()),50)
+  rect(0,300,-600+(50*now.min),50)
+  rect(0,350,-1200+(50*now.min),50)
+  rect(0,400,-1800+(50*now.min),50)
+  rect(0,450,-2400+(50*now.min),50)
   
   //hour proceeding blocks
   fill(255);
   noStroke();
-  rect(0,500,50*hour(),50)
-  rect(0,550,-600+(50*hour()),50)
+  rect(0,500,50*now.hours,50)
+  rect(0,550,-600+(50*now.hours),50)
  
   //background grid 
   stroke(0);
