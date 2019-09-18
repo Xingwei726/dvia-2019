@@ -4,7 +4,7 @@ Similar to a sand clock, each day starts with a fully colored 12*12 square, for 
 
 *Related retinal variables: Shape & Hue*
 
-<!--![](Sketch1.jpg)-->
+![](Sketch_1.jpg)
 
 ## Concept 2 / Beating Dots
 
@@ -12,7 +12,7 @@ Overlapping each circle on top of each other, as time proceeds forward each arc 
 
 *Related retinal variables: Shape & Size*
 
-<!--![](Sketch2.jpg)-->
+![](Sketch_2.jpg)
 
 ## Concept 3 / Blocks
 
@@ -20,4 +20,4 @@ Hour/minute/second all represented by a block, they all started at left margin o
 
 *Related retinal variables: Position & Size*
 
-<!--![](Sketch3.jpg)-->
+![](Sketch_3.jpg)
