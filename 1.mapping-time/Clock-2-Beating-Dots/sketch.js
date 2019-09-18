@@ -17,8 +17,8 @@ function draw(){
       ellipse(
         diameter/2 +i*diameter,
         diameter/2 +j*diameter,
-        diameter*noise(now.sec+i+j),
-        diameter*noise(now.sec+i+j),
+        diameter*noise(now.progress.sec+i+j),
+        diameter*noise(now.progress.sec+i+j),
       );
     }
   }
@@ -27,6 +27,13 @@ function draw(){
   fill(67,100,235)
   noStroke();
   rect(400,200,320,320)
+
+
+  // let from = color(67,100,235);
+  // let to = color(255,132,49);
+  // colorMode(RGB); // Try changing to HSB.
+  // let interA = lerpColor(from, to, 0.33);
+  // let interB = lerpColor(from, to, 0.66);
   
   //Background circle for the clock
   fill(255);
@@ -35,12 +42,10 @@ function draw(){
   
   //Minute's cycle
   fill(89,100,235,75);
-  // fill(255,132,49,100);
   arc(400,200,300,300,1.5*PI,(now.min/30*PI-HALF_PI+0.0001));
 
   //Hour's cycle
   fill(67,100,235,75);
-  // fill(67,100,235,100);
   arc(400,200,300,300,1.5*PI,(now.hours/12*PI-HALF_PI+0.0001)); 
 
   //Second's cycle  

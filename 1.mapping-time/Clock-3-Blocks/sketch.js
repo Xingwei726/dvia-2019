@@ -9,7 +9,7 @@ function draw() {
   var now = clock();
   background(2,50,74)
 
-  length = length - 8
+  length = height*now.progress.sec
   if (length < 0) {
     length = height
   }
