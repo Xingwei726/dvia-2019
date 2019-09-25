@@ -39,5 +39,5 @@ Each month is represented by how many lines that's created the pattern inside th
 ![](concept3.1.jpg)
 A Tuesday in April
 
-![](sketch3.2.jpg)
+![](concept3.2.jpg)
 A Monday in December
