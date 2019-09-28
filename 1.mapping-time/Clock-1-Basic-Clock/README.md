@@ -1,16 +1,14 @@
 # Basic Clock
 
-## Concept & Sketch
+## 1/ Concept & Sketch
 
 Similar to a sand clock, each day starts with a fully colored 12*12 square, for each second/minute/hour lost in ‘time’, one unit will be recolored to white. By end of the day, we will get no 'time' left but a white square.
-
-*Related retinal variables: Shape & Hue*
+***Related retinal variables: Shape & Hue***
 
 ![](BasicClockSketch.jpg)
 
-Preliminary Skectch
 
-## P5.js Code
+## 2/ P5.js Code Implementation
 
 ```Javascript
 function setup() { 
@@ -76,6 +74,6 @@ function draw() {
 
 ```
 
-## Screenshot of Final Design
+## 3/ Screenshot of Final Design
 ![](ScreenShotBasicClock.jpg)
-Current Time: 20:48:37
+Current Time: 20:12:23
