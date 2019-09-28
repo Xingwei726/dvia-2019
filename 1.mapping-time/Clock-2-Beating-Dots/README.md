@@ -1,3 +1,16 @@
+# Beating Dots
+
+## 1/ Concept & Sketch
+
+Overlapping each circle on top of each other, as time proceeds forward each arc starts to complete their own cycle and return to the starting point.
+***Related retinal variables: Shape & Size***
+
+![](BeatingDotsSketch.jpg)
+
+
+## 2/ P5.js Code Implementation
+
+```Javascript
 function setup() { 
   createCanvas(800,400);
   rectMode(CENTER)
@@ -46,3 +59,9 @@ function draw(){
   arc(400,200,300,300,1.5*PI,(now.sec/30*PI-HALF_PI+0.0001));
   
 }
+
+```
+
+## 3/ Screenshot of Final Design
+![](ScreenShotBeatingDots.jpg)
+Current Time: 20:14:15
