@@ -6,7 +6,7 @@ Similar to a sand clock, each day starts with a fully colored 12*12 square, for 
 
 *Related retinal variables: Shape & Hue*
 
-![](Sketch_1.jpg)
+![](BasicClockSketch.jpg)
 
 Preliminary Skectch
 
@@ -77,4 +77,5 @@ function draw() {
 ```
 
 ## Screenshot of Final Design
-![](BasicClock.jpg)
+![](ScreenShotBasicClock.jpg)
+Current Time: 20:48:37
