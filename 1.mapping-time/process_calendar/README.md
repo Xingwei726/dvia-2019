@@ -1,32 +1,21 @@
-## Concept 1 / Month of the Year (Sizes) & Seasons of the Year (Hue/Orientation)
+## Concept 1 / Echo
 
 Each month is represented by a smaller size square, as time proceeds it 'zooms' more and more into the center. Hue of background color indicate which season of the year it's at, totally there are four hues.
 
-*Related retinal variables: size & Hue/Orientation
+***Sizes ---> Month of the Year (totally number:12)
+Hue/Orientation--->Seasons of the Year (totally number:4)***
 
-![](concept1.1.jpg)
-February and First Season of the Year
+![](EchoSketch.jpg)
 
-![](concept1.2.jpg)
-May and Second Season of the Year
 
-![](concept1.3.jpg)
-July and Third Season of the Year
-
-![](concept1.4.jpg)
-October and Four Season of the Year
-
-## Concept 2 / Month of the Year (Value) & Day of the Month (Position)
+## Concept 2 / Chase
 
 Each month is represented by a different value. When it moves into each month, position of the circle represents which day of the month we are currently at.
 
-*Related retinal variables: Value & Position
+***Value ---> Month of the Year (totally number:12)
+Position--->Day of the Month (totally number: varied by month)***
 
-![](concept2.1.jpg)
-5th day of March
-
-![](concept2.2.jpg)
-16th day of July
+![](ChaseSketch.jpg)
 
 
 
@@ -34,10 +23,9 @@ Each month is represented by a different value. When it moves into each month, p
 
 Each month is represented by how many lines that's created the pattern inside the square, eg. one line mean Jan... And day of the week is represented by an upside down square.
 
-*Related retinal variables: Texture & Orientation*
+***Texture ---> Month of the Year (totally number:12)
+Orientation--->Day of the Week (totally number: 7)***
 
-![](concept3.1.jpg)
-A Tuesday in April
+![](PatternSketch.jpg)
 
-![](concept3.2.jpg)
-A Monday in December
+
