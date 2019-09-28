@@ -1,6 +1,6 @@
 # Beating Dots
 
-## Concept & Sketch
+## 1/Concept & Sketch
 
 Overlapping each circle on top of each other, as time proceeds forward each arc starts to complete their own cycle and return to the starting point.
 
@@ -9,7 +9,7 @@ Overlapping each circle on top of each other, as time proceeds forward each arc 
 ![](BeatingDotsSketch.jpg)
 
 
-## P5.js Code Implementation
+## 2/P5.js Code Implementation
 
 ```Javascript
 function setup() { 
@@ -63,6 +63,6 @@ function draw(){
 
 ```
 
-## Screenshot of Final Design
+## 3/Screenshot of Final Design
 ![](ScreenShotBeatingDots.jpg)
 Current Time: 20:14:15
