@@ -1,14 +1,15 @@
-# Beating Dots
+#Beating Dots
 
-## 1/ Concept & Sketch
+##Concept & Sketch
 
 Overlapping each circle on top of each other, as time proceeds forward each arc starts to complete their own cycle and return to the starting point.
+
 ***Related retinal variables: Shape & Size***
 
 ![](BeatingDotsSketch.jpg)
 
 
-## 2/ P5.js Code Implementation
+##P5.js Code Implementation
 
 ```Javascript
 function setup() { 
@@ -62,6 +63,6 @@ function draw(){
 
 ```
 
-## 3/ Screenshot of Final Design
+##Screenshot of Final Design
 ![](ScreenShotBeatingDots.jpg)
 Current Time: 20:14:15
