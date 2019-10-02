@@ -313,5 +313,8 @@ function draw() {
 }
 ```
 
-## 3/ Screenshot of Final Design
+## 3/ Feedbacks on Refinements
+- only make the current month's block to stand out while pushing back the others
+
+## 4/ Screenshot of Final Design
 ![](ScreenShotChase.jpg)

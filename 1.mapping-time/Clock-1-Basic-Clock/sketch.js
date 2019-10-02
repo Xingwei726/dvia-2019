@@ -45,13 +45,13 @@ function draw() {
   rect(0,550,-600+(50*now.hours),50)
  
   //background grid 
-  stroke(0);
+  stroke(255);
   strokeWeight(12);
   fill(255,255,255,0);
   rect(0,0,width,height);
   for (var x = 0; x < width; x += width / 12) {
 		for (var y = 0; y < height; y += height / 12) {
-			stroke(0);
+			stroke(255);
 			strokeWeight(6);
 			line(x, 0, x, height);
 			line(0, y, width, y);

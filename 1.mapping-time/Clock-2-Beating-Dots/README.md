@@ -62,7 +62,9 @@ function draw(){
 }
 
 ```
+## 3/Feedbacks on Refinements
+Use `now.progress.sec` instead of `now.sec` for background dots to give them a smoother transformation.
 
-## 3/Screenshot of Final Design
+## 4/Screenshot of Final Design
 ![](ScreenShotBeatingDots.jpg)
 Current Time: 20:14:15

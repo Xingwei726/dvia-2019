@@ -73,7 +73,12 @@ function draw() {
 }
 
 ```
+## 3/ Feedbacks on Refinements
+Change grid color (outline of squares) to white.
 
-## 3/ Screenshot of Final Design
+## 4/ Screenshot of Final Design
 ![](ScreenShotBasicClock.jpg)
 Current Time: 20:12:23
+![](ScreenShotBasicClock2.jpg)
+Current Time: 07:19:23
+

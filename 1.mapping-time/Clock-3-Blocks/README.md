@@ -50,7 +50,9 @@ rect(now.hours*25, 200, now.hours*4, 300);
 }
 
 ```
+## 3/Feedbacks on Refinements
+Use `length = height*now.progress.sec` for the second's block to make it progresses smoothly.
 
-## 3/Screenshot of Final Design
+## 4/Screenshot of Final Design
 ![](ScreenShotBlocks.jpg)
 Current Time: 20:26:35

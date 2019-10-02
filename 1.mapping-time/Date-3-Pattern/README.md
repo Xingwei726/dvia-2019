@@ -160,8 +160,11 @@ if (wd === 1) {
   
 }
 ```
+## 3/ Feedbacks on Refinements
+- change the orientation's degree to make it more obvious
 
-## 3/ Screenshot of Final Design
+
+## 4/ Screenshot of Final Design
 ![](ScreenShotPattern1.jpg)
 7th Day of the Week in January
 

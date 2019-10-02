@@ -15,7 +15,10 @@ Each month is represented by how many lines left inside the square that's create
 ***Value--->Hour***
 
 ![](HandSketch.jpg)
+Hand Sketch
+
 ![](HybridSketch.jpg)
+Digital Sketch
 
 
 
