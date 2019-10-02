@@ -17,8 +17,8 @@ function draw(){
       ellipse(
         diameter/2 +i*diameter,
         diameter/2 +j*diameter,
-        diameter*noise(now.sec+i+j),
-        diameter*noise(now.sec+i+j),
+        diameter*noise(now.progress.sec+i+j),
+        diameter*noise(now.progress.sec+i+j),
       );
     }
   }
@@ -35,12 +35,10 @@ function draw(){
   
   //Minute's cycle
   fill(89,100,235,75);
-  // fill(255,132,49,100);
   arc(400,200,300,300,1.5*PI,(now.min/30*PI-HALF_PI+0.0001));
 
   //Hour's cycle
   fill(67,100,235,75);
-  // fill(67,100,235,100);
   arc(400,200,300,300,1.5*PI,(now.hours/12*PI-HALF_PI+0.0001)); 
 
   //Second's cycle  
