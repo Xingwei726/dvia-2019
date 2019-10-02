@@ -149,7 +149,7 @@ function draw() {
     rect(50 + offset * 5, 110, sw, sh)
     rect(50 + offset * 6, 110, sw, sh)
   } else if (wd === 6) {
-    rect(50, 152, sw, 30,rc);
+    rect(50, 152, sw, sh,rc);
     rect(50 + offset * 1, 152, sw, sh,rc)
     rect(50 + offset * 2, 152, sw, sh,rc)
     rect(50 + offset * 3, 152, sw, sh,rc)
