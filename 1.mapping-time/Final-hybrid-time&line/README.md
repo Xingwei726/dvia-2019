@@ -6,12 +6,18 @@ Looking at graphical representations of time throughout history, quite often we 
 
 In this concept I want to use retinal variables of a LINE (such as size, position, color of a line etc.) to represent different aspect of TIME. The whole canvas is divided into two parts: foreground and background. Squares in the foreground indicate calendar values while elements in the backgroud represent clock time values.
 
-Each month is represented by how many lines left inside the square that's created the pattern, eg. 12 (*2) line mean Jan... And day of the week is represented by a different orientated pill shape. In the background, left line is second's indicator, it's X coordinates moves 13 units towards right margin as ‘second’ proceeds. Right line is the minute's indicator, width of the line grows as ‘minute’ proceeds. 
+Each month is represented by how many lines left inside the square that's created the pattern, eg. 12 (*2) line mean Jan... Fullness of the moon is represented by the thickness of pill shape. And day of the week is represented by a different orientated pill shape. In the background, left line is second's indicator, it's X coordinates moves 13 units towards right margin as ‘second’ proceeds. Right line is the minute's indicator, width of the line grows as ‘minute’ proceeds. 
 
 ***Texture ---> Month of the Year (totally number:12)***
+
 ***Orientation--->Day of the Week (totally number: 7)***
+
+***Shape--->Fullness of Moon***
+
 ***Position--->Second***
+
 ***Size--->Minute***
+
 ***Value--->Hour***
 
 ![](HandSketch.jpg)
