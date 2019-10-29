@@ -49,7 +49,10 @@ function draw() {
 
   
 //countries' Color Scheme  
-  
+
+  // var palette = Brewer.sequential('BuPu', numberOfShades, lowest, highest);
+  // var color = palette.colorForValue(totals[i]);
+  // fill(color);
   
   
   
@@ -65,6 +68,7 @@ function draw() {
     line (x1, y1+d*i, x2, y2+d*i);
     line (x1, y1+d*i+d2, x2, y2+d*i+d2);
   }
+  
 
   stroke(0);
   push();  
@@ -279,7 +283,7 @@ function draw() {
     x += colWidth2
   }
   
-//Russia Underground  
+//Russia Mortality  
   x = 215;
   x1=100;
   var colWidth2 = 80;
@@ -295,6 +299,7 @@ function draw() {
       // pop();
     x += colWidth2
   }
+  
   
  //UK Atmospheric  
   x = 215;
