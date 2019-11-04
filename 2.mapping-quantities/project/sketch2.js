@@ -2,7 +2,7 @@ var atmospheric;
 var underground;
 var mortality
 var milestone;
-
+var a4;
 
 
 function preload() {
@@ -10,8 +10,17 @@ function preload() {
     atmospheric = loadTable('data/atmospheric.csv', 'csv', 'header')
     underground = loadTable('data/underground.csv', 'csv', 'header')
     milestone = loadTable('data/milestone.csv', 'csv', 'header')
+    a4 = loadSound("sound/a4.mp3");
+    b4 = loadSound("sound/b4.mp3");
 
 }
+
+
+// function drawCross(aX, aY){
+//     stroke(0);
+//     line(aX-50, aY, aX+50, aY);
+//     line(aX, aY-50, aX, aY+50);
+// }
 
 
 let num = 5
@@ -87,11 +96,11 @@ function setup() {
     line( x1+156,y1-65, x1+156, y1-45)
     pop();
     push();
-    stroke(50, 34, 255);    strokeWeight(2);
+    stroke(50, 34, 255);
+    strokeWeight(2);
     line(200 + 50 * 4, 0 + y1-60, 5 + 200 + 50 * 4, 10 + y1-60);
     line(200 - 5 + 50 * 4, 10 + y1-60, 200 + 50 * 4, 0 + y1-60);
     pop();
-
 
 
     // y-axis labels
@@ -213,10 +222,11 @@ function setup() {
     for (var r = 0; r < table.getRowCount(); r++) {
         var value = table.getNum(r, 1);//1
         var value2 = map(value, 0, 60, y2 + d * 2, 300)
-        fill(pal.colorForValue(value));
+        fill(0);
         ellipse(x, 450 - value2, 13, 8);
         push();
-        stroke(pal.colorForValue(value));
+        // stroke(pal.colorForValue(value));
+        stroke(0);
         strokeWeight(lw);
         line(x + 6, 451 - value2, x + 6, 428 - value2)
         pop();
@@ -230,10 +240,10 @@ function setup() {
     for (var r = 0; r < table2.getRowCount(); r++) {
         var value = table2.getNum(r, 1);//1
         var value2 = map(value, 0, 60, y2 + d * 2, 300)
-        fill(pal.colorForValue(value));
+        fill(0);
         ellipse(x, 450 - value2, 13, 8);
         push();
-        stroke(pal.colorForValue(value));
+        stroke(0);
         strokeWeight(lw);
         line(x + 6, 451 - value2, x + 6, 472 - value2)
         pop();
@@ -243,7 +253,8 @@ function setup() {
     //1.US Milestone
     ls = 10;//distance between two lines
     push();
-    stroke(50, 34, 255);    strokeWeight(2);
+    stroke(50, 34, 255);
+    strokeWeight(2);
     //1945
     line(200, 0 + y1, 5 + 200, 10 + y1);
     line(200 - 5, 10 + y1, 200, 0 + y1);
@@ -276,10 +287,10 @@ function setup() {
     for (var r = 0; r < table.getRowCount(); r++) {
         var value = table.getNum(r, 2);//2
         var value2 = map(value, 0, 60, y2 + d * 2, 300)
-        fill(pal.colorForValue(value))
+        fill(0)
         ellipse(x, 450 - value2 + d2, 13, 8);//d2*1
         push();
-        stroke(pal.colorForValue(value));
+        stroke(0);
         strokeWeight(lw);
         line(x + 6, 451 - value2 + d2, x + 6, 428 - value2 + d2)//d2*1
         pop();
@@ -293,10 +304,10 @@ function setup() {
     for (var r = 0; r < table2.getRowCount(); r++) {
         var value = table2.getNum(r, 2);//2
         var value2 = map(value, 0, 60, y2 + d * 2, 300)
-        fill(pal.colorForValue(value));
+        fill(0);
         ellipse(x, 450 - value2 + d2, 13, 8);//d2*1
         push();
-        stroke(pal.colorForValue(value));
+        stroke(0);
         strokeWeight(lw);
         line(x + 6, 451 - value2 + d2, x + 6, 472 - value2 + d2)//d2*1
         pop();
@@ -306,7 +317,8 @@ function setup() {
     //2.Russia Milestone
     ls = 10;//distance between two lines
     push();
-    stroke(50, 34, 255);    strokeWeight(2);
+    stroke(50, 34, 255);
+    strokeWeight(2);
     //1949
     line(200 + 50 * 4, 0 + y1 + d2, 5 + 200 + 50 * 4, 10 + y1 + d2);
     line(200 - 5 + 50 * 4, 10 + y1 + d2, 200 + 50 * 4, 0 + y1 + d2);
@@ -339,10 +351,10 @@ function setup() {
     for (var r = 0; r < table.getRowCount(); r++) {
         var value = table.getNum(r, 3);//3
         var value2 = map(value, 0, 60, y2 + d * 2, 300)
-        fill(pal.colorForValue(value))
+        fill(0)
         ellipse(x, 450 - value2 + d2 * 2, 13, 8);//d2*2
         push();
-        stroke(pal.colorForValue(value));
+        stroke(0);
         strokeWeight(lw);
         line(x + 6, 451 - value2 + d2 * 2, x + 6, 428 - value2 + d2 * 2)//d2*2
         pop();
@@ -356,10 +368,10 @@ function setup() {
     for (var r = 0; r < table2.getRowCount(); r++) {
         var value = table2.getNum(r, 3);//3
         var value2 = map(value, 0, 60, y2 + d * 2, 300)
-        fill(pal.colorForValue(value));
+        fill(0);
         ellipse(x, 450 - value2 + d2 * 2, 13, 8);//d2*2
         push();
-        stroke(pal.colorForValue(value));
+        stroke(0);
         strokeWeight(lw);
         line(x + 6, 451 - value2 + d2 * 2, x + 6, 472 - value2 + d2 * 2)//d2*2
         pop();
@@ -369,7 +381,8 @@ function setup() {
     //3. UK Milestone
     ls = 10;//distance between two lines
     push();
-    stroke(50, 34, 255);    strokeWeight(2);
+    stroke(50, 34, 255);
+    strokeWeight(2);
     //1952
     line(200 + 50 * 7, 0 + y1 + d2 * 2, 5 + 200 + 50 * 7, 10 + y1 + d2 * 2);
     line(200 - 5 + 50 * 7, 10 + y1 + d2 * 2, 200 + 50 * 7, 0 + y1 + d2 * 2);
@@ -396,10 +409,10 @@ function setup() {
     for (var r = 0; r < table.getRowCount(); r++) {
         var value = table.getNum(r, 4);//4
         var value2 = map(value, 0, 60, y2 + d * 2, 300)
-        fill(pal.colorForValue(value))
+        fill(0)
         ellipse(x, 450 - value2 + d2 * 3, 13, 8);//d2*3
         push();
-        stroke(pal.colorForValue(value));
+        stroke(0);
         strokeWeight(lw);
         line(x + 6, 451 - value2 + d2 * 3, x + 6, 428 - value2 + d2 * 3)//d2*3
         pop();
@@ -413,10 +426,10 @@ function setup() {
     for (var r = 0; r < table2.getRowCount(); r++) {
         var value = table2.getNum(r, 4);//4
         var value2 = map(value, 0, 60, y2 + d * 2, 300)
-        fill(pal.colorForValue(value));
+        fill(0);
         ellipse(x, 450 - value2 + d2 * 3, 13, 8);//d2*3
         push();
-        stroke(pal.colorForValue(value));
+        stroke(0);
         strokeWeight(lw);
         line(x + 6, 451 - value2 + d2 * 3, x + 6, 472 - value2 + d2 * 3)//d2*3
         pop();
@@ -426,7 +439,8 @@ function setup() {
     //4. France Milestone
     ls = 10;//distance between two lines
     push();
-    stroke(50, 34, 255);    strokeWeight(2);
+    stroke(50, 34, 255);
+    strokeWeight(2);
     //1960
     line(200 + 50 * 15, 0 + y1 + d2 * 3, 5 + 200 + 50 * 15, 10 + y1 + d2 * 3);
     line(200 - 5 + 50 * 15, 10 + y1 + d2 * 3, 200 + 50 * 15, 0 + y1 + d2 * 3);
@@ -450,10 +464,10 @@ function setup() {
     for (var r = 0; r < table.getRowCount(); r++) {
         var value = table.getNum(r, 5);//5
         var value2 = map(value, 0, 60, y2 + d * 2, 300)
-        fill(pal.colorForValue(value))
+        fill(0)
         ellipse(x, 450 - value2 + d2 * 4, 13, 8);//d2*4
         push();
-        stroke(pal.colorForValue(value));
+        stroke(0);
         strokeWeight(lw);
         line(x + 6, 451 - value2 + d2 * 4, x + 6, 428 - value2 + d2 * 4)//d2*4
         pop();
@@ -467,10 +481,10 @@ function setup() {
     for (var r = 0; r < table2.getRowCount(); r++) {
         var value = table2.getNum(r, 5);//5
         var value2 = map(value, 0, 60, y2 + d * 2, 300)
-        fill(pal.colorForValue(value));
+        fill(0);
         ellipse(x, 450 - value2 + d2 * 4, 13, 8);//d2*4
         push();
-        stroke(pal.colorForValue(value));
+        stroke(0);
         strokeWeight(lw);
         line(x + 6, 451 - value2 + d2 * 4, x + 6, 472 - value2 + d2 * 4)//d2*4
         pop();
@@ -480,7 +494,8 @@ function setup() {
     //5. China Milestone
     ls = 10;//distance between two lines
     push();
-    stroke(50, 34, 255);    strokeWeight(2);
+    stroke(50, 34, 255);
+    strokeWeight(2);
     //1964
     line(200 + 50 * 19, 0 + y1 + d2 * 4, 5 + 200 + 50 * 19, 10 + y1 + d2 * 4);
     line(200 - 5 + 50 * 19, 10 + y1 + d2 * 4, 200 + 50 * 19, 0 + y1 + d2 * 4);
@@ -503,10 +518,10 @@ function setup() {
     for (var r = 0; r < table.getRowCount(); r++) {
         var value = table.getNum(r, 6);//6
         var value2 = map(value, 0, 60, y2 + d * 2, 300)
-        fill(pal.colorForValue(value))
+        fill(0)
         ellipse(x, 450 - value2 + d2 * 5, 13, 8);//d2*5
         push();
-        stroke(pal.colorForValue(value));
+        stroke(0);
         strokeWeight(lw);
         line(x + 6, 451 - value2 + d2 * 5, x + 6, 428 - value2 + d2 * 5)//d2*5
         pop();
@@ -520,10 +535,10 @@ function setup() {
     for (var r = 0; r < table2.getRowCount(); r++) {
         var value = table2.getNum(r, 6);//6
         var value2 = map(value, 0, 60, y2 + d * 2, 300)
-        fill(pal.colorForValue(value));
+        fill(0);
         ellipse(x, 450 - value2 + d2 * 5, 13, 8);//d2*5
         push();
-        stroke(pal.colorForValue(value));
+        stroke(0);
         strokeWeight(lw);
         line(x + 6, 451 - value2 + d2 * 5, x + 6, 472 - value2 + d2 * 5)//d2*5
         pop();
@@ -533,7 +548,8 @@ function setup() {
     //6. India Milestone
     ls = 10;//distance between two lines
     push();
-    stroke(50, 34, 255);    strokeWeight(2);
+    stroke(50, 34, 255);
+    strokeWeight(2);
     //1974
     line(200 + 50 * 29, 0 + y1 + d2 * 5, 5 + 200 + 50 * 29, 10 + y1 + d2 * 5);
     line(200 - 5 + 50 * 29, 10 + y1 + d2 * 5, 200 + 50 * 29, 0 + y1 + d2 * 5);
@@ -557,10 +573,10 @@ function setup() {
     for (var r = 0; r < table.getRowCount(); r++) {
         var value = table.getNum(r, 7);//7
         var value2 = map(value, 0, 60, y2 + d * 2, 300)
-        fill(pal.colorForValue(value))
+        fill(0)
         ellipse(x, 450 - value2 + d2 * 6, 13, 8);//d2*6
         push();
-        stroke(pal.colorForValue(value));
+        stroke(0);
         strokeWeight(lw);
         line(x + 6, 451 - value2 + d2 * 6, x + 6, 428 - value2 + d2 * 6)//d2*6
         pop();
@@ -574,10 +590,10 @@ function setup() {
     for (var r = 0; r < table2.getRowCount(); r++) {
         var value = table2.getNum(r, 7);//7
         var value2 = map(value, 0, 60, y2 + d * 2, 300)
-        fill(pal.colorForValue(value));
+        fill(0);
         ellipse(x, 450 - value2 + d2 * 6, 13, 8);//d2*6
         push();
-        stroke(pal.colorForValue(value));
+        stroke(0);
         strokeWeight(lw);
         line(x + 6, 451 - value2 + d2 * 6, x + 6, 472 - value2 + d2 * 6)//d2*6
         pop();
@@ -587,7 +603,8 @@ function setup() {
     //7.Pakistan Milestone
     ls = 10;//distance between two lines
     push();
-    stroke(50, 34, 255);    strokeWeight(2);
+    stroke(50, 34, 255);
+    strokeWeight(2);
 
     //1998
     line(200 + 50 * 43, 0 + y1 + d2 * 6, 5 + 200 + 50 * 43, 10 + y1 + d2 * 6);
@@ -609,10 +626,10 @@ function setup() {
     for (var r = 0; r < table.getRowCount(); r++) {
         var value = table.getNum(r, 8);//8
         var value2 = map(value, 0, 60, y2 + d * 2, 300)
-        fill(pal.colorForValue(value))
+        fill(0)
         ellipse(x, 450 - value2 + d2 * 7, 13, 8);//d2*7
         push();
-        stroke(pal.colorForValue(value));
+        stroke(0);
         strokeWeight(lw);
         line(x + 6, 451 - value2 + d2 * 7, x + 6, 428 - value2 + d2 * 7)//d2*7
         pop();
@@ -626,10 +643,10 @@ function setup() {
     for (var r = 0; r < table2.getRowCount(); r++) {
         var value = table2.getNum(r, 8);//8
         var value2 = map(value, 0, 60, y2 + d * 2, 300)
-        fill(pal.colorForValue(value));
+        fill(0);
         ellipse(x, 450 - value2 + d2 * 7, 13, 8);//d2*6
         push();
-        stroke(pal.colorForValue(value));
+        stroke(0);
         strokeWeight(lw);
         line(x + 6, 451 - value2 + d2 * 7, x + 6, 472 - value2 + d2 * 7)//d2*7
         pop();
@@ -639,7 +656,8 @@ function setup() {
     //8.North Korea
     ls = 10;//distance between two lines
     push();
-    stroke(50, 34, 255);    strokeWeight(2);
+    stroke(50, 34, 255);
+    strokeWeight(2);
 
     //2006
     line(200 + 50 * 51, 0 + y1 + d2 * 7, 5 + 200 + 50 * 51, 10 + y1 + d2 * 7);
@@ -658,5 +676,39 @@ function setup() {
     text('18', 200 + 50 * 62+10,  10 + y1 + d2 * 7);
 
 
+}
+
+function draw(){
+//   stroke(0);
+//   strokeWeight(2);
+//   line (mouseX, mouseY+10,mouseX,mouseY-10)
+
+//   drawCross(mouseX, mouseY);
+
+    
+}
+
+function draw(){
+    // if (mouseX > x && mouseX < x + w && mouseY < height) {
+    //   // If we're clicking
+    //   if (mouseIsPressed) {
+    //     fill(100,255,200);
+    //   // Or just rolling over
+    //   } else {
+    //     fill(127);
+    //   }
+    // } else {
+    //   fill(200);
+    // }
+    
+    
+  if (mouseIsPressed) {
+    a4.play();
+  } else {
+    b4.play();
+  }
+    
+    
+    
 }
 

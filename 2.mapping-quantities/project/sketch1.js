@@ -1,13 +1,12 @@
 var atmospheric;
 var underground;
-var mortality
 var milestone;
-var totals;
+var energy;
 
 
 
 function preload() {
-    totals = loadTable('data/totals.csv', 'csv', 'header')
+    energy = loadTable('data/energy.csv', 'csv', 'header')
     atmospheric = loadTable('data/atmospheric.csv', 'csv', 'header')
     underground = loadTable('data/underground.csv', 'csv', 'header')
     milestone = loadTable('data/milestone.csv', 'csv', 'header')
@@ -28,7 +27,7 @@ function setup() {
 
     var table = atmospheric;
     var table2 = underground;
-    var table3 = totals;
+    var table3 = energy;
     var table4 = milestone;
     print(table);
     print(table2);
@@ -345,6 +344,37 @@ function setup() {
         pop();
         x += colWidth2
     }
+    
+    
+    // // Milestones 
+    // x = 200;
+    // x1 = 100;
+    // var colWidth2 = 50;
+    // for (var r = 0; r < table3.getRowCount(); r++) {
+    //     var value = table3.getNum(r, 1);//1
+    //     var value2 = map(value, 0, 50000,0, 500)
+    //     push();
+    //     stroke(0);
+    //     // noStroke();
+    //     noFill();
+    //     ellipse(x,y1+d*8+d3*2,value2,value2);
+    //     pop()
+
+    //     x += colWidth2;
+    // }
+    
+    // for (var r = 0; r < table3.getRowCount(); r++) {
+    //     var value = table3.getNum(r, 2);//1
+    //     var value2 = map(value, 0, 50000,0, 500)
+    //     push();
+    //     stroke(0);
+    //     // noStroke();
+    //     noFill();
+    //     ellipse(x,y1+d*8+d3*2,value2,value2);
+    //     pop()
+
+    //     x += colWidth2;
+    // }
     
     //2.Russia Underground  
     x = 200;
