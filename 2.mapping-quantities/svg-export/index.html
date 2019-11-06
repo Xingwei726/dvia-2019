@@ -2,23 +2,28 @@
 <head>
   <meta charset="UTF-8">
   <style>
-    /* remove default padding and center the sketch on the page */
     html, body { height:100%; padding:0; margin:0; background:#e0e0d9; }
+    /* uncomment next line to center the sketch in the window: */
     /*body { display:flex; justify-content:center; align-items:center; }*/
+    #svg-buffer{
+      display:none;
+    }
   </style>
+
+  <!-- Import any google fonts you want to use here -->
   <link href="https://fonts.googleapis.com/css?family=Rokkitt" rel="stylesheet">
 
   <!-- dependencies -->
+  <script src="../libraries/cash.min.js"></script>
   <script src="../libraries/lodash.min.js"></script>
   <script src="../libraries/brewer.js"></script>
   <script src="../libraries/p5.min.js"></script>
-  <script src="../libraries/p5.svg.js"></script>
-<<<<<<< HEAD:2.mapping-quantities/project/old/1_AllInOne.html
 
-=======
->>>>>>> cc9e424f3f5f9e68bc7b7b5ea5908f4b424317ac:2.mapping-quantities/project/concept-1.html
+  <!-- import the special SVG-export library  -->
+  <script src="../libraries/p5.svg.js"></script>
+
   <!-- your code -->
-  <script language="javascript" type="text/javascript" src="sketch1.js"></script>
+  <script src="sketch.js"></script>
 </head>
 
 <body>

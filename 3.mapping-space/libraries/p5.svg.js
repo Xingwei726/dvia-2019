@@ -1,25 +1,3 @@
-<<<<<<< HEAD
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@Xingwei726 
-1
-124samizdatco/dvia-2019
- Code Issues 0 Pull requests 0 Projects 0 Wiki Security Insights
-dvia-2019/2.mapping-quantities/libraries/p5.svg.js / 
-@samizdatco samizdatco added svg export lib
-030b9e6 12 days ago
-Executable File  2584 lines (2327 sloc)  87 KB
-  
- You're using jump to definition to discover and navigate code.  Beta
-Learn more or give us feedback
-=======
->>>>>>> cc9e424f3f5f9e68bc7b7b5ea5908f4b424317ac
 /*!!
  *  p5.svg v0.5.2
  *  SVG Runtime for p5.js.
@@ -2603,18 +2581,3 @@ require('../src/index.js')(p5);
 
 },{"../src/index.js":7}]},{},[12]);
 });
-<<<<<<< HEAD
-© 2019 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-=======
->>>>>>> cc9e424f3f5f9e68bc7b7b5ea5908f4b424317ac
