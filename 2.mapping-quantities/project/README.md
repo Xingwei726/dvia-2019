@@ -148,6 +148,9 @@ function mouseReleased() {
 
 
 
-## Digital Screenshot & Final Print Poster
+## Digital Screenshot
 ![](screenShot.png)
+
+
+## Final Print Poster
 ![](Symphony.png)
