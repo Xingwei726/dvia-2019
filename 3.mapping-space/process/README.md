@@ -1,4 +1,12 @@
-## Process
+## Exploratory Visualizations
+**EV1 Earthquakes Heatmap**
 
-Listing of the contents of this folder and a prose description of your ideas for how to represent
-the earthquake data geospatially and diagrammatically.
+![](Sketch1.jpg)
+
+**EV2 Earthquakes' Shapes**
+
+![](Sketch2.jpg)
+
+** Earthquakes'Pattern**
+
+![](Sketch3.jpg)
