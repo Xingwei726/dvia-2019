@@ -1,0 +1,39 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="libraries/leaflet/leaflet.css" /> <!-- default styles -->
+  <script type='text/javascript' src='libraries/p5.dom.min.js'></script>
+  <script language="javascript" type="text/javascript" src="sketch.js"></script>
+
+  <!-- load our dependencies and sketch file -->
+  <script src="libraries/leaflet/leaflet.js"></script>
+  <script src="libraries/p5.min.js"></script>
+  <script src="libraries/lodash.min.js"></script>
+  <script src="libraries/brewer.js"></script>
+  
+  <script src="sketch.js"></script>
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+    }
+
+    /* default dimensions for the leaflet map */
+    #quake-map{
+      width: 1440px;
+      height: 400px;
+    }
+  </style>
+  
+</head>
+<body>
+  <!-- The container div for our leaflet map -->
+  <div id="quake-map"></div>
+  <div id='myDiagram'></div>
+  <script type='text/javascript' src='libraries/p5.dom.min.js'></script>
+
+
+
+  <!-- p5.js will create a canvas element here at runtime -->
+</body>
+</html>

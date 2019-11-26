@@ -21,6 +21,8 @@ var tsDay = 1000 * 60 * 60 * 24;
 
 var magnitudeInterval = 1.0;
 
+
+
 function preload() {
   //my table is comma separated value "csv"
   //and has a header specifying the columns labels
@@ -75,6 +77,9 @@ function setup() {
 
   // draw the actual points
   drawDataPoints();
+  
+  
+  console.log (table)
 }
 
 
