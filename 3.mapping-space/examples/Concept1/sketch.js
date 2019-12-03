@@ -9,16 +9,19 @@ var time;
 // var moment = require('moment');
 var markerIcon = L.icon({
     iconUrl: 'earthquake.png',
-    iconSize:     [20, 20], // size of the icon
+    iconSize:     [15, 15], // size of the icon
     iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
-    popupAnchor:  [10, 10] // point from which the popup should open relative to the iconAnchor
+    popupAnchor:  [-100, 20] // point from which the popup should open relative to the iconAnchor
 });
+
+
+
 
 var magnitudeInt=[];
 
 function preload() {
     // load the CSV data into our `table` variable and clip out the header row
-    table = loadTable("data/1.0_day.csv", "csv", "header");
+    table = loadTable("data/1day.csv", "csv", "header");
 
 }
 
@@ -45,6 +48,9 @@ function setup(){
     
     let title = createElement('h2', 'Earthquakes And Measurement of Errors');
     title.position(30,400)
+    
+    let subTitle = createElement('h3', 'From Nov.21 to Nov.22');
+    subTitle.position(30,400)
 
     //append an area for my diagram, later in draw function can use p5 do append shapes.
     var margin = {top: 10, right: 30, bottom: 30, left: 30};
@@ -69,7 +75,6 @@ function setupMap() {
     boxZoom: true,
     zoom: 0
 });
-    // load a set of map tiles – choose from the different providers demoed here:
     // https://leaflet-extras.github.io/leaflet-providers/preview/
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -79,9 +84,29 @@ function setupMap() {
         accessToken: 'pk.eyJ1IjoiaHVhbng0MjkiLCJhIjoiY2szMzRzNHpqMGpiZDNib3EzbGgweHR0eSJ9.FbzMgwMQ7oL8uqZBSJqF2A'
     }).addTo(mymap);
        
-       graphicScale = L.control.graphicScale(['fill']).addTo(mymap);
+      graphicScale = L.control.graphicScale(['fill']).addTo(mymap);
 
 }
+
+// function setupMap(){
+    
+//     var token ="pk.eyJ1IjoiaHVhbng0MjkiLCJhIjoiY2szMzRzNHpqMGpiZDNib3EzbGgweHR0eSJ9.FbzMgwMQ7oL8uqZBSJqF2A";
+
+//     var mymap = L.map('quake-map').setView([-73.9749,40.7736], 10);
+
+//     var gl = L.mapboxGL({
+//         accessToken: token,
+//         style: 'mapbox://styles/mapbox/bright-v8'
+//     }).addTo(mymap); 
+    
+//     gl.getMapboxMap()
+//     graphicScale = L.control.graphicScale(['fill']).addTo(mymap);
+
+    
+// }
+
+
+
 
 function clickZoom(e) {
     mymap.setView(e.target.getLatLng(),5);
@@ -106,7 +131,7 @@ function addRect(){
     console.log("magnitudeInt",magnitudeInt)
 
     
-    
+    // var markers = L.markerClusterGroup();
     
     for (var r=0; r<table.getRowCount(); r++){
         var row = table.getRow(r);
@@ -116,7 +141,6 @@ function addRect(){
         // var customPopup = "Tooltip<br/><img src='http://joshuafrazier.info/images/maptime.gif' alt='maptime logo gif' width='350px'/>";
         // day = time || moment().format('dddd')
         
-
         var customPopup = (time[r])
         var customOptions =
             {
@@ -130,10 +154,21 @@ function addRect(){
             'className' : 'custom2'
             }        
         
+    //     for (var i = 0; i < addressPoints.length; i++) {
+    //     var a = addressPoints[i];
+    //     var title = a[2];
+    //     var marker = L.marker(new L.LatLng(a[0], a[1]), {
+    //         icon: L.mapbox.marker.icon({'marker-symbol': 'post', 'marker-color': '0044FF'}),
+    //         title: title
+    //     });
+    //     marker.bindPopup(title);
+    //     markers.addLayer(marker);
+    // }    
+
             
         rect.bindPopup(customPopup2,customOptions2);
-        L.marker([latitude[r],longitude[r]],{icon: markerIcon}).addTo(mymap).bindPopup(customPopup,customOptions).on('click', clickZoom);
-
+        var marker = L.marker([latitude[r],longitude[r]],{icon: markerIcon}).addTo(mymap).bindPopup(customPopup,customOptions).on('click', clickZoom);
+        // markers.addLayer(marker)
             
         mymap.fitBounds(bounds);
         
@@ -191,64 +226,88 @@ function columnMin(tableObject, columnName){
 //draw my diagram
 function draw(){
   background("#ff7800");
-  var top=80;
+  
+  var top=100;
   angleMode(DEGREES);
   
-  //legend label
+  //legend label for earthquakes
     fill(0);
     stroke(255);
     strokeWeight(1);
     rect(30,top+20,30,30);
 
-    fill(255);
+    fill(0);
     noStroke();
     textSize(12);
+    textFont('PT Mono')
     text("Magnitude",30, top+10);
     
     push();
+    fill(0)
     translate(20, top+52);
     rotate(-90);
     text("Depth", 0, 0);
     pop();
+    
+  //legend for errors
+    push();
+    fill(255);
+    stroke(255);
+    strokeWeight(1);
+    triangle(30, top+80, 30, top+80+30, 30+20, top+80);
+    pop();
+    
+    fill(255);
+    noStroke();
+    textSize(12);
+    text("magError",30, top+70);
+    
+    push();
+    fill(255)
+    translate(20, top+140);
+    rotate(-90);
+    text("depthError", 0, 0);
+    pop();
 
   
   
-  for (let l1 = 0; l1 < 50; l1++) {
+  for (let l1 = 0; l1 < 51; l1++) {
     depth = table.getNum(l1, 3);// get earthquake's depth
     mag = table.getNum(l1, 4);// get earthquake's mag
     depError = table.getNum(l1,16);//get deperror
-    // value4 = table.getNum(l1,17);//get magerror
+    magError = table.getNum(l1,17);//get magerror
     
     d = map(depth, -2, 607.78, 1, 20)//depth=>height
     w = map(mag,0.95,6.1, 1, 20 )//mag=>width
     de = map(depError, 0, 100, 1, 20)//deptherror
-    // t3 = map(value4, 0.006, 4.4, 1, 20)//magerror
+    me = map(magError, 0.006, 4.4, 1, 20)//magerror
 
     fill(0);
     stroke(255);
     strokeWeight(1);
     rect(60+30+25*l1,top+20,10*w,10*d);
+    
     push();
     fill(255);
     stroke(255);
     strokeWeight(1);
-    triangle(60+30+25*l1, top+80, 60+30+25*l1, top+80+de, 60+30+25*l1+de, top+80);
+    triangle(60+30+25*l1, top+80, 60+30+25*l1, top+80+de*3, 60+30+25*l1+me*3, top+80);
     pop();
   }
   
   
   
   
-  for (let l1 = 51; l1 < 100; l1++) {
-    value = table.getNum(l1, 3);// get earthquake's depth
-    value2 = table.getNum(l1, 4);// get earthquake's mag
-    value3 = table.getNum(l1,16);//get deperror
-    // value4 = table.getNum(l1,17);//get magerror
+  for (let l1 = 51; l1 < 102; l1++) {
+    depth = table.getNum(l1, 3);// get earthquake's depth
+    mag = table.getNum(l1, 4);// get earthquake's mag
+    depError = table.getNum(l1,16);//get deperror
+    magError = table.getNum(l1,17);//get magerror
     
-    d = map(value, -2, 607.78, 1, 20)//depth=>height
-    w = map(value2,0.95,6.1, 1, 20 )//mag=>width
-    de = map(value3, 0, 100, 1, 20)//deptherror
-    // t3 = map(value4, 0.006, 4.4, 1, 20)//magerror
+    d = map(depth, -2, 607.78, 1, 20)//depth=>height
+    w = map(mag,0.95,6.1, 1, 20 )//mag=>width
+    de = map(depError, 0, 100, 1, 20)//deptherror
+    me = map(magError, 0.006, 4.4, 1, 20)//magerror
 
     fill(0);
     stroke(255);
@@ -258,53 +317,76 @@ function draw(){
     fill(255);
     stroke(255);
     strokeWeight(1);
-    triangle(30+25*(l1-51), top*2+140, 30+25*(l1-51), top*2+140+de, 30+25*(l1-51)+de, top*2+140);
+    triangle(30+25*(l1-51), top*2+140, 30+25*(l1-51), top*2+140+de*3, 30+25*(l1-51)+me*3, top*2+140);
     pop();
   }
   
-  for (let l1 = 101; l1 < 150; l1++) {
-    value = table.getNum(l1, 3);// get earthquake's depth
-    value2 = table.getNum(l1, 4);// get earthquake's mag
-    value3 = table.getNum(l1,16);//get deperror
-    // value4 = table.getNum(l1,17);//get magerror
+  for (let l1 = 102; l1 < 153; l1++) {
+    depth = table.getNum(l1, 3);// get earthquake's depth
+    mag = table.getNum(l1, 4);// get earthquake's mag
+    depError = table.getNum(l1,16);//get deperror
+    magError = table.getNum(l1,17);//get magerror
     
-    d = map(value, -2, 607.78, 1, 20)//depth=>height
-    w = map(value2,0.95,6.1, 1, 20 )//mag=>width
-    de = map(value3, 0, 100, 1, 20)//deptherror
-    // t3 = map(value4, 0.006, 4.4, 1, 20)//magerror
+    d = map(depth, -2, 607.78, 1, 20)//depth=>height
+    w = map(mag,0.95,6.1, 1, 20 )//mag=>width
+    de = map(depError, 0, 100, 1, 20)//deptherror
+    me = map(magError, 0.006, 4.4, 1, 20)//magerror
 
     fill(0);
     stroke(255);
     strokeWeight(1);
-    rect(30+25*(l1-101),top*3+140,10*w,10*d);
+    rect(30+25*(l1-102),top*3+140,10*w,10*d);
     push();
     fill(255);
     stroke(255);
     strokeWeight(1);
-    triangle(30+25*(l1-101), top*3+200, 30+25*(l1-101), top*3+200+de, 30+25*(l1-101)+de, top*3+200);
+    triangle(30+25*(l1-102), top*3+200, 30+25*(l1-102), top*3+200+de*3, 30+25*(l1-102)+me*3, top*3+200);
     pop();
   }
   
-  for (let l1 = 151; l1 < 211; l1++) {
-    value = table.getNum(l1, 3);// get earthquake's depth
-    value2 = table.getNum(l1, 4);// get earthquake's mag
-    value3 = table.getNum(l1,16);//get deperror
-    // value4 = table.getNum(l1,17);//get magerror
+  for (let l1 = 153; l1 < 204; l1++) {
+    depth = table.getNum(l1, 3);// get earthquake's depth
+    mag = table.getNum(l1, 4);// get earthquake's mag
+    depError = table.getNum(l1,16);//get deperror
+    magError = table.getNum(l1,17);//get magerror
     
-    d = map(value, -2, 607.78, 1, 20)//depth=>height
-    w = map(value2,0.95,6.1, 1, 20 )//mag=>width
-    de = map(value3, 0, 100, 1, 20)//deptherror
-    // t3 = map(value4, 0.006, 4.4, 1, 20)//magerror
+    d = map(depth, -2, 607.78, 1, 20)//depth=>height
+    w = map(mag,0.95,6.1, 1, 20 )//mag=>width
+    de = map(depError, 0, 100, 1, 20)//deptherror
+    me = map(magError, 0.006, 4.4, 1, 20)//magerror
 
     fill(0);
     stroke(255);
     strokeWeight(1);
-    rect(30+25*(l1-151),top*4+200,10*w,10*d);
+    rect(30+25*(l1-153),top*4+200,10*w,10*d);
     push();
     fill(255);
     stroke(255);
     strokeWeight(1);
-    triangle(30+25*(l1-151), top*4+260, 30+25*(l1-151), top*4+260+de, 30+25*(l1-151)+de, top*4+260);
+    triangle(30+25*(l1-153), top*4+260, 30+25*(l1-153), top*4+260+de*3, 30+25*(l1-153)+me*3, top*4+260);
+    pop();
+  }
+  
+  for (let l1 = 204; l1 < 215; l1++) {
+    depth = table.getNum(l1, 3);// get earthquake's depth
+    mag = table.getNum(l1, 4);// get earthquake's mag
+    depError = table.getNum(l1,16);//get deperror
+    magError = table.getNum(l1,17);//get magerror
+    
+    d = map(depth, -2, 607.78, 1, 20)//depth=>height
+    w = map(mag,0.95,6.1, 1, 20 )//mag=>width
+    de = map(depError, 0, 100, 1, 20)//deptherror
+    me = map(magError, 0.006, 4.4, 1, 20)//magerror
+
+    fill(0);
+    stroke(255);
+    strokeWeight(1);
+    rect(30+25*(l1-204),top*5+260,10*w,10*d);
+    push();
+    fill(255);
+    stroke(255);
+    strokeWeight(1);
+    triangle(30+25*(l1-204), top*5+320, 30+25*(l1-204), top*5+320+de*3, 30+25*(l1-204)+me*3, top*5+320);
     pop();
   }
   

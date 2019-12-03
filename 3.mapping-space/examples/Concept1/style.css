@@ -7,7 +7,12 @@
       margin-top: 35px;
       font-family: 'PT Mono', monospace;
       font-size: 22px;
-      
+    }
+    
+    h3{
+      margin-top: 65px;
+      font-family: 'PT Mono', monospace;
+      font-size: 14px;
     }
 
     /* default dimensions for the leaflet map */
@@ -20,6 +25,7 @@
     .custom .leaflet-popup-content-wrapper {
     background: #6236FF;
     color: #ffffff;
+
    }
    
     .custom2 .leaflet-popup-tip,
@@ -27,3 +33,4 @@
     background: #ff7800;
     color: #ffffff;
    }
+
