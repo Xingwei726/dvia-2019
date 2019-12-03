@@ -1,18 +1,10 @@
 // position for the plot
-var plotX1, plotY1; // top left corner
-var plotX2, plotY2; // bottom right corner
+var x_left, y_top; // top left corner
+var x_right, y_bot; // bottom right corner
 
 // minimum and maximum values for data and time
 var magnitudeMin, magnitudeMax;
-var timeMin, timeMax;
-
-// table as the data set
 var table;
-
-// an array for the time
-var times;
-// an array for the magnitude
-var magnitudes;
 
 function preload() {
   //my table is comma separated value "csv"
@@ -25,16 +17,16 @@ function setup() {
   background(200);
 
   // define top left and bottom right corner of our plot
-  plotX1 = 50;
-  plotX2 = width - plotX1;
-  plotY1 = 50;
-  plotY2 = height- plotY1;
+  x_left = 50;
+  x_right = width - x_left;
+  y_top = 50;
+  y_bot = height- y_top;
 
   // draw a background rectangle for the plot
   fill(255);
   noStroke();
   rectMode(CORNERS);
-  rect(plotX1, plotY1, plotX2, plotY2);
+  rect(x_left, y_top, x_right, y_bot);
 
   strokeWeight(5);
   stroke(255,0,0);
@@ -43,38 +35,40 @@ function setup() {
 
 function drawDataPoints(){
   // get the two arrays of interest: time and magnitude
-  times = table.getColumn("timestamp");
-  magnitudes = table.getColumn("mag");
+  var times = columnValues(table, "timestamp");
+  var magnitudes = columnValues(table, "mag");
 
   // get minimum and maximum values for both
-  magnitudeMin = 0.0;
-  magnitudeMax = getColumnMax("mag");
-  timeMin = times[0];
-  timeMax = times[times.length-1];
+  var magnitudeMin = 0.0;
+  var magnitudeMax = columnMax(table, "mag");
+  var timeMin = columnMin(table, 'timestamp')
+  var timeMax = columnMax(table, 'timestamp')
 
   // cycle through array
   for(var i=0; i<times.length; i++){
     //map the x position to the time
-    var x = map(times[i],timeMin, timeMax, plotX1, plotX2);
+    var x = map(times[i],timeMin, timeMax, x_left, x_right);
     // map the y position to magnitude
-    var y = map(magnitudes[i],magnitudeMin, magnitudeMax, plotY2, plotY1);
+    var y = map(magnitudes[i],magnitudeMin, magnitudeMax, y_bot, y_top);
     point(x,y);
   }
 }
 
-// get the maximum value within a column
-function getColumnMax(columnName){
-  var col = table.getColumn(columnName);
-  // m is the maximum value
-  // purposefully start this very low
-  var m = 0.0;
-  for(var i =0; i< col.length; i++){
-    // each value within the column
-    // that is higher than m replaces the previous value
-    if(float(col[i])>m){
-      m = float(col[i]);
-    }
-  }
-  // after going through all rows, return the max value
-  return m;
+// get the values of a given column as an array of numbers
+function columnValues(tableObject, columnName){
+  // get the array of strings in the specified column
+  var colStrings = tableObject.getColumn(columnName)
+  // convert to a list of numbers by running each element through the `float` function
+  return _.map(colStrings, _.toNumber)
 }
+
+// get the maximum value within a column
+function columnMax(tableObject, columnName){
+    return _.max(columnValues(tableObject, columnName))
+}
+
+// get the minimum value within a column
+function columnMin(tableObject, columnName){
+    return _.min(columnValues(tableObject, columnName))
+}
+
