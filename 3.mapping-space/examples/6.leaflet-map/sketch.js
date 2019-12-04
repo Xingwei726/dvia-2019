@@ -38,6 +38,8 @@ function setup() {
             fillOpacity: 0.25,  // use some transparency so we can see overlaps
             radius: row.getNum('mag') * 10000
         })
+        console.log (row.getNum('latitude'))
+
 
         // place the new dot on the map
         circle.addTo(mymap);

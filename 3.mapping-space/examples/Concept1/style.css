@@ -14,17 +14,30 @@
       font-family: 'PT Mono', monospace;
       font-size: 14px;
     }
+    
+    .custom h4{
+      /*margin-top: 65px;*/
+      font-family: 'PT Mono';
+      font-size: 9px;
+    }
+    
+    .custom2 h4{
+      /*margin-top: 65px;*/
+      font-family: 'PT Mono';
+      font-size: 9px;
+    }
 
     /* default dimensions for the leaflet map */
     #quake-map{
       width: 1600px;
-      height: 400px;
+      height: 450px;
     }
     
     .custom .leaflet-popup-tip,
     .custom .leaflet-popup-content-wrapper {
     background: #6236FF;
     color: #ffffff;
+    height: 200px;
 
    }
    
@@ -32,5 +45,7 @@
     .custom2 .leaflet-popup-content-wrapper {
     background: #ff7800;
     color: #ffffff;
+    height: 130px;
+
    }
 

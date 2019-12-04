@@ -1,0 +1,51 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!--<link rel="stylesheet" href="libraries/leaflet/leaflet.css" /> <!-- default styles -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="crossorigin=""></script>
+  <link rel="stylesheet" href="libraries/leaflet/Leaflet.GraphicScale.min.css" />
+  <script type='text/javascript' src='libraries/p5.dom.min.js'></script>
+  <script language="javascript" type="text/javascript" src="sketch.js"></script>
+
+  <!-- load our dependencies and sketch file -->
+  <script type='text/javascript' src='libraries/p5.dom.min.js'></script>
+  <script language="javascript" type="text/javascript" src="libraries/lodash.min.js"></script>
+  <script language="javascript" type="text/javascript" src="libraries/chroma.min.js"></script>
+  <script src="libraries/leaflet/leaflet.js"></script>
+  <script src="libraries/p5.min.js"></script>
+  <script src="libraries/lodash.min.js"></script>
+  <script src="libraries/brewer.js"></script>
+  
+  <script src="sketch.js"></script>
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+    }
+
+    /* default dimensions for the leaflet map */
+    #quake-map{
+      width: 1440px;
+      height: 400px;
+    }
+    
+    .custom .leaflet-popup-tip,
+    .custom .leaflet-popup-content-wrapper {
+    background: #e93434;
+    color: #ffffff;
+}
+  </style>
+  
+</head>
+<body>
+  <!-- The container div for our leaflet map -->
+  <div id="quake-map"></div>
+  <div id='myDiagram'></div>
+  <script type='text/javascript' src='libraries/p5.dom.min.js'></script>
+  <script src="libraries/leaflet/Leaflet.GraphicScale.min.js"></script>
+
+
+  <!-- p5.js will create a canvas element here at runtime -->
+</body>
+</html>

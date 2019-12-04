@@ -5,6 +5,9 @@ var longitude;
 var latitude;
 var magnitude;
 var time;
+var depth;
+var th;
+var th2;
 // var magScale = chroma.scale('YlOrRd').mode('lch').domain([0, 10])
 // var moment = require('moment');
 var markerIcon = L.icon({
@@ -18,6 +21,7 @@ var markerIcon = L.icon({
 
 
 var magnitudeInt=[];
+var depthInt=[]
 
 function preload() {
     // load the CSV data into our `table` variable and clip out the header row
@@ -33,13 +37,20 @@ function setup(){
     longitude=table.getColumn("longitude")    
     latitude= table.getColumn("latitude")
     magnitude=table.getColumn("mag")
+    depth=table.getColumn("depth")
     time = table.getColumn("time")
     
-    
     for (var m=0; m < magnitude.length; m++){
-        var value = ceil(magnitude[m])
+        var value = ceil(map(magnitude[m],0.95,6.1,1,20))
         magnitudeInt.push(value)
     }
+    
+    for (var n=0; n <depth.length; n++){
+        // th = table.getNum(n, 3);// get earthquake's depth
+        th2 = ceil(map(depth[n], -2, 607.78, 1, 20))//depth=>height
+        depthInt.push(th2)
+    }
+    
     // console.log("longtitude",longitude)
     // console.log("latitude",latitude)
     // console.log("magnitude",magnitude)
@@ -47,10 +58,10 @@ function setup(){
 
     
     let title = createElement('h2', 'Earthquakes And Measurement of Errors');
-    title.position(30,400)
+    title.position(30,450)
     
     let subTitle = createElement('h3', 'From Nov.21 to Nov.22');
-    subTitle.position(30,400)
+    subTitle.position(30,450)
 
     //append an area for my diagram, later in draw function can use p5 do append shapes.
     var margin = {top: 10, right: 30, bottom: 30, left: 30};
@@ -59,7 +70,7 @@ function setup(){
     let myCanvas = createCanvas(width, height);//default screen width is 1440px;
     myCanvas.parent('myDiagram');
     //change the canvas's position
-    myCanvas.position(0,400);
+    myCanvas.position(0,450);
     //setup map
     setupMap();
     addRect();
@@ -73,13 +84,14 @@ function setupMap() {
     mymap = L.map('quake-map', {
     center: [-73.9749,40.7736],
     boxZoom: true,
-    zoom: 0
+    minZoom: 2,
+    zoom: -10
 });
     // https://leaflet-extras.github.io/leaflet-providers/preview/
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-        maxZoom: 10,
-        minZoom: 2,
+        maxZoom: 12,
+        // minZoom: 2,
         id: 'mapbox.dark',
         accessToken: 'pk.eyJ1IjoiaHVhbng0MjkiLCJhIjoiY2szMzRzNHpqMGpiZDNib3EzbGgweHR0eSJ9.FbzMgwMQ7oL8uqZBSJqF2A'
     }).addTo(mymap);
@@ -87,23 +99,6 @@ function setupMap() {
       graphicScale = L.control.graphicScale(['fill']).addTo(mymap);
 
 }
-
-// function setupMap(){
-    
-//     var token ="pk.eyJ1IjoiaHVhbng0MjkiLCJhIjoiY2szMzRzNHpqMGpiZDNib3EzbGgweHR0eSJ9.FbzMgwMQ7oL8uqZBSJqF2A";
-
-//     var mymap = L.map('quake-map').setView([-73.9749,40.7736], 10);
-
-//     var gl = L.mapboxGL({
-//         accessToken: token,
-//         style: 'mapbox://styles/mapbox/bright-v8'
-//     }).addTo(mymap); 
-    
-//     gl.getMapboxMap()
-//     graphicScale = L.control.graphicScale(['fill']).addTo(mymap);
-
-    
-// }
 
 
 
@@ -129,45 +124,59 @@ function addRect(){
     console.log("latitude",latitude)
     console.log("magnitude",magnitude)
     console.log("magnitudeInt",magnitudeInt)
+    console.log("depthInt",depthInt)
+    console.log("depth",depth)
+
 
     
     // var markers = L.markerClusterGroup();
     
     for (var r=0; r<table.getRowCount(); r++){
         var row = table.getRow(r);
-        var bounds= [[row.getNum('latitude'), row.getNum('longitude')],[row.getNum('latitude') + magnitudeInt[r], row.getNum('longitude') + magnitudeInt[r]]];
+        
+        // console.log("th2",depthInt)
+        var bounds= [[row.getNum('latitude'), row.getNum('longitude')],[row.getNum('latitude') + depthInt[r], row.getNum('longitude') +magnitudeInt[r]]];
         var rect = L.rectangle( bounds, {color: "#ff7800", weight: 1} ).addTo(mymap);
         // var rect = L.rectangle( bounds, {color: magScale(magvalue).hex(),weight:1 }).addTo(mymap);
         // var customPopup = "Tooltip<br/><img src='http://joshuafrazier.info/images/maptime.gif' alt='maptime logo gif' width='350px'/>";
         // day = time || moment().format('dddd')
         
-        var customPopup = (time[r])
+        // var customPopup = (time[r])
+        const customPopup=
+                "<h4>Timestamp:</h4>"+
+                "<h4>"+time[r]+"</h4>" +
+                // "<br/>" +
+                "<h4>Longitude:</h4>"+
+                "<h4>"+longitude[r]+"</h4>"+
+                // "<br/>" +
+                "<h4>Latitude:</h4>"+
+                "<h4>"+latitude[r]+"</h4>";                
+     
+        
         var customOptions =
             {
-            'maxWidth': '500',
+            // 'maxWidth': '500px',
             'className' : 'custom'
             }
-        var customPopup2 = (latitude[r])
+        
+        // var customPopup2 = (latitude[r])
+        const customPopup2 =
+                "<h4>Magnitude:</h4>"+"<h4>"+ magnitude[r]+"</h4>" +
+                // "<br/>" +
+                "<h4>Depth:</h4>"+ "<h4>"+ depth[r] + "</h4>";
+        
+        
+        
         var customOptions2 =
             {
-            'maxWidth': '500',
+            'maxWidth': '500px',
             'className' : 'custom2'
             }        
         
-    //     for (var i = 0; i < addressPoints.length; i++) {
-    //     var a = addressPoints[i];
-    //     var title = a[2];
-    //     var marker = L.marker(new L.LatLng(a[0], a[1]), {
-    //         icon: L.mapbox.marker.icon({'marker-symbol': 'post', 'marker-color': '0044FF'}),
-    //         title: title
-    //     });
-    //     marker.bindPopup(title);
-    //     markers.addLayer(marker);
-    // }    
 
             
         rect.bindPopup(customPopup2,customOptions2);
-        var marker = L.marker([latitude[r],longitude[r]],{icon: markerIcon}).addTo(mymap).bindPopup(customPopup,customOptions).on('click', clickZoom);
+        marker = L.marker([latitude[r],longitude[r]],{icon: markerIcon}).addTo(mymap).bindPopup(customPopup,customOptions).on('click', clickZoom);
         // markers.addLayer(marker)
             
         mymap.fitBounds(bounds);
@@ -228,6 +237,7 @@ function draw(){
   background("#ff7800");
   
   var top=100;
+  var el=2;//enlarge
   angleMode(DEGREES);
   
   //legend label for earthquakes
@@ -291,7 +301,7 @@ function draw(){
     fill(255);
     stroke(255);
     strokeWeight(1);
-    triangle(60+30+25*l1, top+80, 60+30+25*l1, top+80+de*3, 60+30+25*l1+me*3, top+80);
+    triangle(60+30+25*l1, top+80, 60+30+25*l1, top+80+de*el, 60+30+25*l1+me*el, top+80);
     pop();
   }
   
@@ -317,7 +327,7 @@ function draw(){
     fill(255);
     stroke(255);
     strokeWeight(1);
-    triangle(30+25*(l1-51), top*2+140, 30+25*(l1-51), top*2+140+de*3, 30+25*(l1-51)+me*3, top*2+140);
+    triangle(30+25*(l1-51), top*2+140, 30+25*(l1-51), top*2+140+de*el, 30+25*(l1-51)+me*el, top*2+140);
     pop();
   }
   
@@ -340,7 +350,7 @@ function draw(){
     fill(255);
     stroke(255);
     strokeWeight(1);
-    triangle(30+25*(l1-102), top*3+200, 30+25*(l1-102), top*3+200+de*3, 30+25*(l1-102)+me*3, top*3+200);
+    triangle(30+25*(l1-102), top*3+200, 30+25*(l1-102), top*3+200+de*el, 30+25*(l1-102)+me*el, top*3+200);
     pop();
   }
   
@@ -363,7 +373,7 @@ function draw(){
     fill(255);
     stroke(255);
     strokeWeight(1);
-    triangle(30+25*(l1-153), top*4+260, 30+25*(l1-153), top*4+260+de*3, 30+25*(l1-153)+me*3, top*4+260);
+    triangle(30+25*(l1-153), top*4+260, 30+25*(l1-153), top*4+260+de*el, 30+25*(l1-153)+me*el, top*4+260);
     pop();
   }
   
@@ -386,7 +396,7 @@ function draw(){
     fill(255);
     stroke(255);
     strokeWeight(1);
-    triangle(30+25*(l1-204), top*5+320, 30+25*(l1-204), top*5+320+de*3, 30+25*(l1-204)+me*3, top*5+320);
+    triangle(30+25*(l1-204), top*5+320, 30+25*(l1-204), top*5+320+de*el, 30+25*(l1-204)+me*el, top*5+320);
     pop();
   }
   
