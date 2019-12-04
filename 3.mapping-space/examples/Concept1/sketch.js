@@ -278,6 +278,21 @@ function draw(){
     rotate(-90);
     text("depthError", 0, 0);
     pop();
+    
+  //legend for time
+    fill(0);
+    noStroke();
+    textSize(12);
+    textFont('PT Mono')
+    text("18:03~22:47",30+80, top+10);
+    text("22:50~04:25",30, top*2+70);
+    text("04:27~10:13",30, top*3+130);
+    text("10:22~16:55",30, top*4+190);
+    // text("16:57~17:54",30, top*5+250);
+
+
+
+
 
   
   
