@@ -1,0 +1,130 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Create a time slider</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css' rel='stylesheet' />
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel='stylesheet' type='text/css' href='style.css'/>
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css?family=Rubik+Mono+One|Rubik:400,500,700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=PT+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,500,700&display=swap" rel="stylesheet">
+    
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.svg.js"></script>
+    <script type='text/javascript' src='libraries/p5.dom.min.js'></script>
+    <script language="javascript" type="text/javascript" src="libraries/lodash.min.js"></script>
+    <script language="javascript" type="text/javascript" src="libraries/chroma.min.js"></script>
+    <script src="libraries/leaflet/leaflet.js"></script>
+    <script src="libraries/lodash.min.js"></script>
+    <script src="libraries/brewer.js"></script>
+
+
+</head>
+
+<body>
+
+    <div id="features">
+        <section id="intro" class="active">
+            <h3>Earthquakes</h3>
+            <p>
+            Between            
+            </p>
+        </section>
+        
+        <section id="magnitude">
+            <h3>Largest Magnitude</h3>
+            <p>
+            The largest azimuthal gap between azimuthally adjacent stations (in degrees). In general, the smaller this number, the more reliable is the calculated horizontal position of the earthquake. Earthquake locations in which the azimuthal gap exceeds 180 degrees typically have large location and depth uncertainties.
+
+            </p>
+        </section>
+        
+        <section id="depth">
+            <h3>Depthest</h3>
+            <p>
+                Holmes and Watson's investigations take them across London. Sherlock
+                deduces that West was murdered elsewhere, then moved to Aldgate
+                Station to create the illusion that he was crushed on the tracks by
+                a train. On their way to Woolwich Sherlock dispatches a telegram to
+                Mycroft at London Bridge: "Send list of all foreign spies known to
+                be in England, with full address."
+            </p>
+        </section>
+        <section id="gap">
+            <h3>Largest Gap</h3>
+            <p>
+                While investigating at Woolwich Arsenal Sherlock learns that West
+                did not have the three keys&mdash;door, office, and
+                safe&mdash;necessary to steal the papers. The train station clerk
+                mentions seeing an agitated West boarding the 8:15 train to London
+                Bridge. Sherlock suspects West of following someone who had access
+                to the Woolwich chief's keyring with all three keys.
+            </p>
+        </section>
+        <section id="error1">
+            <h3>magError</h3>
+            <p>
+                Mycroft responds to Sherlock's telegram and mentions several spies.
+                Hugo Oberstein of 13 Caulfield Gardens catches Sherlock's eye. He
+                heads to the nearby Gloucester Road station to investigate and
+                learns that the windows of Caulfield Gardens open over rail tracks
+                where trains stop frequently.
+            </p>
+        </section>
+        <section id="end">
+            <h3>depthError</h3>
+            <p>
+                Holmes deduces that the murderer placed West atop a stopped train at
+                Caulfield Gardens. The train traveled to Aldgate Station before
+                West's body finally toppled off. Backtracking to the criminal's
+                apartment, Holmes finds a series of classified ads from
+                <em>The Daily Telegraph</em> stashed away. All are under the name
+                Pierrot: "Monday night after nine. Two taps. Only ourselves. Do not
+                be so suspicious. Payment in hard cash when goods delivered."
+            </p>
+        </section>
+
+    </div>
+    
+    
+    <div id="map"></div>
+    
+    <div class="map-overlay top">
+        <div class="map-overlay-inner">
+            <h2>Earthquakes Happened In One Month</h2>
+            <!--<h2>11/16/2019 To 12/15/2019</h2>-->
+            <label id="date"></label>
+            <input id="slider" type="range" min="1" max="30" step="0" value="1" />
+        </div>
+        <div class="map-overlay-inner">
+            <div id="legend" class="legend">
+                <div> Magnitude </div>
+                <div class="bar"></div>
+                <span class="legend">Low</span> <span> High</span>
+
+            </div>
+        </div>
+    </div>
+ 
+    <div id='myDiagram'></div>
+
+    
+    
+    <!-- load dependencies and sketch file -->
+    <!--<script type='text/javascript' src='libraries/p5.dom.min.js'></script>-->
+    <script src="libraries/leaflet/Leaflet.GraphicScale.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+
+    
+    <script language="javascript" type="text/javascript" src="sketch.js"></script>
+    <script language="javascript" type="text/javascript" src="diagram.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+    html, body {
+      padding: 0;
+      margin: 0;
+    }
+    
+    h2{
+      margin-top: 35px;
+      font-family: 'PT Mono', monospace;
+      font-size: 22px;
+    }
+    
+    h3{
+      margin-top: 65px;
+      font-family: 'PT Mono', monospace;
+      font-size: 14px;
+    }
+    
+    h5 {
+      font-family: 'Roboto Mono', monospace;
+    }
+    
+    
+    .custom h4{
+      /*margin-top: 65px;*/
+      font-family: 'PT Mono';
+      font-size: 9px;
+    }
+    
+    .custom2 h4{
+      /*margin-top: 65px;*/
+      font-family: 'PT Mono';
+      font-size: 9px;
+    }
+
+    /* default dimensions for the leaflet map */
+    #quake-map{
+      width: 1600px;
+      height: 450px;
+    }
+    
+    .custom .leaflet-popup-tip,
+    .custom .leaflet-popup-content-wrapper {
+    background: #6236FF;
+    color: #ffffff;
+    height: 200px;
+    
+
+   }
+   
+    .custom2 .leaflet-popup-tip,
+    .custom2 .leaflet-popup-content-wrapper {
+    background: #ff7800;
+    color: #ffffff;
+    height: 130px;
+    /*line-height: 16px;*/
+
+
+   }
+
