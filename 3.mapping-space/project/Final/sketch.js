@@ -1,5 +1,3 @@
-var dates = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29","30","31" ];
-
 //mapbox setup
 mapboxgl.accessToken = "pk.eyJ1IjoiaHVhbng0MjkiLCJhIjoiY2szMzRzNHpqMGpiZDNib3EzbGgweHR0eSJ9.FbzMgwMQ7oL8uqZBSJqF2A";
 var map = new mapboxgl.Map({
@@ -11,6 +9,8 @@ var map = new mapboxgl.Map({
     bearing: 0,
     pitch: 0
 });
+
+var dates = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29","30","31" ];
 
 //mapbox add control icon
 map.addControl(
@@ -31,7 +31,7 @@ var significant = {
         // bearing: 27,
         bearing: 0,
         center: [31.4606, 20.7927],//lng, lat
-        zoom: 1,
+        zoom: 0.5,
         pitch: 0
     },
     'magnitude': {
@@ -78,7 +78,7 @@ var significant = {
     'origin': {
         bearing: 0,
         center:  [31.4606, 20.7927],
-        zoom: 1,
+        zoom: 0.5,
         pitch: 0
     }
 };
@@ -287,7 +287,6 @@ map.on('mouseenter', 'earthquake-circles', function(e) {
     var coor1 = e.features[0].geometry.coordinates[0];
     var coor2 = e.features[0].geometry.coordinates[1];
     var place = e.features[0].properties.place;
-    var felt = e.features[0].properties.felt;
     var mag = e.features[0].properties.mag;
     var gap = e.features[0].properties.gap;
      
@@ -308,8 +307,6 @@ map.on('mouseenter', 'earthquake-circles', function(e) {
       "Magnitude: "+ mag
     )
     .addTo(map);
-    
-    
         
 });
 
@@ -319,5 +316,40 @@ map.on('mouseleave', 'earthquake-circles', function() {
         popup.remove();
 });
                     
-                
+
+map.on('mouseenter', 'significant', function(e) {
+    map.getCanvas().style.cursor = 'pointer';
+     
+    var coor1 = e.features[0].geometry.coordinates[0];
+    var coor2 = e.features[0].geometry.coordinates[1];
+
+    var place = e.features[0].properties.place;
+    var mag = e.features[0].properties.mag;
+    var gap = e.features[0].properties.gap;
+     
+    console.log(coor1)
+    // console.log(depth)
+
+    // popup
+    // .setLngLat([coor1,coor2])
+    // .setHTML(
+    //   "<h3>Location:</h3>"+"<p>"+ place +"</p>"+
+    //   "<h3>Magnitude:</h3>"+"<p>"+ mag +"</p>"
+    // )
+    // .addTo(map);
+    popup
+    .setLngLat([coor1,coor2])
+    .setHTML(
+      "Location: "+ place +"<br/>"+
+      "Magnitude: "+ mag
+    )
+    .addTo(map);
+        
+});
+
+
+map.on('mouseleave', 'significant', function() {
+    map.getCanvas().style.cursor = '';
+        popup.remove();
+});             
                 
