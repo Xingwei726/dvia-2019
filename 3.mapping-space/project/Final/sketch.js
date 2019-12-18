@@ -1,466 +1,331 @@
-var table;
-var table2;
-var mymap;
-var graphicScale;
-var longitude;
-var latitude;
-var magnitude;
-var time;
-var depth;
-var th;
-var th2;
+var dates = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29","30","31" ];
+
+//mapbox setup
+mapboxgl.accessToken = "pk.eyJ1IjoiaHVhbng0MjkiLCJhIjoiY2szMzRzNHpqMGpiZDNib3EzbGgweHR0eSJ9.FbzMgwMQ7oL8uqZBSJqF2A";
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/huanx429/ck49eg2dl0d9i1clobu3mwf5a',
+    // style:'mapbox://styles/huanx429/ck49emtl80e4t1colqdqm8hol',
+    center: [31.4606, 20.7927],
+    zoom: 0.5,
+    bearing: 0,
+    pitch: 0
+});
+
+//mapbox add control icon
+map.addControl(
+    new mapboxgl.GeolocateControl({
+        positionOptions: {
+            enableHighAccuracy: true
+        },
+        trackUserLocation: true
+    })
+);
+
+map.addControl(new mapboxgl.FullscreenControl());
+
+
+//significant earthquakes
+var significant = {
+    'intro': {
+        // bearing: 27,
+        bearing: 0,
+        center: [31.4606, 20.7927],//lng, lat
+        zoom: 1,
+        pitch: 0
+    },
+    'magnitude': {
+        duration: 6000,
+        center: [125.1884, 6.7078],
+        bearing: 150,
+        zoom: 10,
+        pitch: 0
+    },
+    'depth': {
+        bearing: 90,
+        center: [178.3264,-26.6111],
+        zoom: 5,
+        speed: 0.5,
+        pitch: 10
+    },
+    'negDepth': {
+        bearing: 90,
+        center: [-155.5966644, 19.4746666],
+        zoom: 5,
+        speed: 0.5
+        
+    },
+    'magError': {
+        bearing: 90,
+        center: [-120.3511, 39.4663],
+        zoom: 5,
+        pitch: 0,
+        speed: 0.5
+    },
+    'depthError': {
+        bearing: 45,
+        center: [-155.5070038, 19.4963341],
+        zoom: 5,
+        pitch: 20,
+        speed: 0.5
+    },
+    'station': {
+        bearing: 0,
+        center:  [-64.049, -64.774],
+        zoom: 5,
+        pitch: 0
+    },
+    'origin': {
+        bearing: 0,
+        center:  [31.4606, 20.7927],
+        zoom: 1,
+        pitch: 0
+    }
+};
+
+//scroll setup
+window.onscroll = function () {
+    var chapterNames = Object.keys(significant);
+    for (var i = 0; i < chapterNames.length; i++) {
+        var chapterName = chapterNames[i];
+        if (isElementOnScreen(chapterName)) {
+            setActiveChapter(chapterName);
+            break;
+        }
+    }
+};
+
+var activeChapterName = 'intro';
+function setActiveChapter(chapterName) {
+    if (chapterName === activeChapterName) return;
+    map.flyTo(significant[chapterName]);
+    document.getElementById(chapterName).setAttribute('class', 'active');
+    document.getElementById(activeChapterName).setAttribute('class', '');
+    activeChapterName = chapterName;
+}
+
+function isElementOnScreen(id) {
+    var element = document.getElementById(id);
+    var bounds = element.getBoundingClientRect();
+    return bounds.top < window.innerHeight && bounds.bottom > 0;
+}
 
 
 
-//use custom icon to mark earthquake locations
-var markerIcon = L.icon({
-    iconUrl: 'earthquake.png',
-    iconSize:     [15, 15], // size of the icon
-    iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-100, 20] // point from which the popup should open relative to the iconAnchor
+
+
+//Day Slider Setup
+function filterBy(date) {
+    var filters = ['==', 'date', date];
+    map.setFilter('earthquake-circles', filters);
+
+    // Set the label to the month
+    document.getElementById('date').textContent = dates[date];
+}
+
+
+
+//Draw markers on Map
+map.on('load', function () {
+    d3.json('data/all.geojson', function (err, data) {
+        
+            if (err) throw err;
+
+            data.features = data.features.map(function (d) {
+                d.properties.date = new Date(d.properties.time).getDate();
+                return d;
+            });
+
+
+            var geojson = map.addSource('earthquakes', {
+                'type': 'geojson',
+                data: data
+            });
+
+            map.addLayer({
+                'id': 'earthquake-circles',
+                'type': 'circle',
+                'source': 'earthquakes',
+                'paint': {
+                    'circle-color': [ 'interpolate',
+                        ['linear'],
+                        ['get', 'mag'],
+                        -1.38,
+                        '#3D4DE0',
+                        6.8,
+                        '#ff7800'
+                    ],
+
+                    'circle-opacity': 1,
+                    'circle-radius': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'rms'],
+                        1,
+                        5,
+                        10,
+                        20
+                    ]
+                }
+            });
+
+
+            // map.addLayer({
+            //     'id': 'earthquake-labels',
+            //     'type': 'symbol',
+            //     'source': 'earthquakes',
+            //     'layout': {
+            //         'text-field': [
+            //             'concat',
+            //             ['to-string', ['get', 'mag']],
+            //             'm'
+            //         ],
+            //         'text-font': [
+            //             'Open Sans Bold',
+            //             'Arial Unicode MS Bold'
+            //         ],
+            //         'text-size': 12
+            //     },
+            //     'paint': {
+            //         'text-color': 'rgba(0,0,0,0.5)'
+            //     }
+            // });
+            
+            
+            map.on('click', 'earthquake-circles', function(e) {
+                map.flyTo({ center: e.features[0].geometry.coordinates });
+            });
+             
+            map.on('mouseenter', 'earthquake-circles', function() {
+                map.getCanvas().style.cursor = 'pointer';
+            });
+             
+            map.on('mouseleave', 'earthquake-circles', function() {
+                map.getCanvas().style.cursor = '';
+            });
+
+            filterBy(0);
+
+            document
+                .getElementById('slider')
+                .addEventListener('input', function (e) {
+                    var date = parseInt(e.target.value, 10);
+                    filterBy(date);
+                });
+            
+            // for (var i=0; i<data.features.length; i++){
+            //     earthquake.push(data.features[i].properties.mag);
+                // lng.push(data.features[i].geometry.coordinates[0]);
+                // lat.push(data.features[i].geometry.coordinates[1]);
+                // depth.push(data.features[i].geometry.coordinates[2])
+                
+            // }  
+            
+        });
+
+       
+//Add Earthquake fault lines        
+        map.addSource('faults', {
+          'type': 'geojson',
+          'data': 'data/faults.geojson'
+        });
+        map.addLayer({
+          'id': 'faults',
+          'type': 'line',
+          'source': 'faults',
+          'paint': {
+            'line-color': '#7d756a',
+            }
+        })  
+        
+        
+//Add Significant markers        
+        map.addSource('marks', {
+            'type': 'geojson',
+            'data': 'data/significantMarks.geojson'
+        });
+        // map.addLayer({
+        //   'id': 'marks',
+        //   'type': 'line',
+        //   'source': 'faults',
+        //   'paint': {
+        //     'line-color': '#7d756a',
+        //     }
+        // }) 
+        
+        // map.addLayer({
+        //         'id': 'significant',
+        //         'type': 'circle',
+        //         'source': 'marks',
+        //         'paint': {
+        //             'circle-color': '#ff2a00',
+
+        //             'circle-opacity': 1,
+        //             'circle-radius': 5
+        //         }
+        //     });
+        map.loadImage(
+            'marker.png',
+            function(error, image) {
+            if (error) throw error;
+            map.addImage('marker', image);    
+            map.addLayer({
+                "id": "significant",
+                // "interactive": true,
+                "type": "symbol",
+                "source": "marks",
+                "layout": {
+                    "icon-image": 'marker',
+                    "icon-size": 0.036
+                },
+                "paint": {
+                    /*"text-size": 10,*/
+                }
+            });
+         });
+        
+
+        
+        
+       
 });
 
 
-var magnitudeInt=[];
-var depthInt=[]
+
+//Popup Window Setup
+var popup = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false
+});
 
 
-function preload() {
-    // load the CSV data into our `table` variable and clip out the header row
-    table = loadTable("data/1day.csv", "csv", "header");
-    table2 = loadTable("../../data/2.5_month.csv", "csv", "header");
-}
-
-
-function setup(){
-    
-    //process earthquake data
-    longitude=table.getColumn("longitude")    
-    latitude= table.getColumn("latitude")
-    magnitude=table.getColumn("mag")
-    depth=table.getColumn("depth")
-    time = table.getColumn("time")
-    
-    for (var m=0; m < magnitude.length; m++){
-        var value = ceil(map(magnitude[m],0.95,6.1,1,20))
-        magnitudeInt.push(value)
-    }
-    
-    for (var n=0; n <depth.length; n++){
-        // th = table.getNum(n, 3);// get earthquake's depth
-        th2 = ceil(map(depth[n], -2, 607.78, 1, 20))//depth=>height
-        depthInt.push(th2)
-    }
-
-
-//append titles    
-    let title = createElement('h2', 'Earthquakes And Measurement of Errors');
-    title.position(30,450)
-    
-    let subTitle = createElement('h3', 'From Nov.21 to Nov.22');
-    subTitle.position(30,450)
-
-//append an area for my diagram, later in draw function can use p5 do append shapes.
-    var margin = {top: 10, right: 30, bottom: 30, left: 30};
-    width = 1600;
-    height = 800 - margin.top - margin.bottom;
-    let myCanvas = createCanvas(width, height);//default screen width is 1440px;
-    myCanvas.parent('myDiagram');
-    
-//change the canvas's position
-    myCanvas.position(0,450);
-    
-//setup map
-    setupMap();
-    // addRect();
-  
-}
-
-
-function setupMap() {
-    // first, create a leaflet map (look in the html's style tag to set its dimensions)
-    mymap = L.map('quake-map', {
-    center: [-73.9749,40.7736],
-    boxZoom: true,
-    minZoom: 2,
-    zoom: -10
-    });
-    
-    // https://leaflet-extras.github.io/leaflet-providers/preview/
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-        maxZoom: 18,
-        // minZoom: 2,
-        id: 'mapbox.dark',
-        accessToken: 'pk.eyJ1IjoiaHVhbng0MjkiLCJhIjoiY2szMzRzNHpqMGpiZDNib3EzbGgweHR0eSJ9.FbzMgwMQ7oL8uqZBSJqF2A'
-    }).addTo(mymap);
-    
-       
-    graphicScale = L.control.graphicScale(['fill']).addTo(mymap);
-    
-//Tectonic Line
-    Tectonic.useMap(mymap)
-    
-    var faultCounts = _.countBy(table.rows, function(row){
-      // Tectonic.findFault() takes a [lat,lng] coordinate and returns an object with fields for
-      // 'latitude', 'longitude', 'distance', and 'name' describing which fault (and where along it)
-      // the quake is closest to. The distance value is in kilometers and latitude/longitude are the 
-      // the closest point to the quake on the fault.
-      return Tectonic.findFault(row.getNum('latitude'), row.getNum('longitude')).name
-    })
-
-    // the variable Tectonic.plates is an array of geoJson 'feature' objects. 
-    // Add each to the map as a blue line...
-    for (var i=0; i<Tectonic.faults.length; i++){
-        var fault = Tectonic.faults[i]
-        var name = fault.properties.name
-
-        var layer = L.geoJSON(fault.geometry)
-        layer.setStyle({
-            color:'blue', 
-            weight:1, 
-            opacity:1, 
-            fillOpacity:0
-        }).bindTooltip(`${name} fault: ${faultCounts[name]} quakes`).addTo(mymap)
-    }
-
-    // step through the earthquakes csv and add a small dot for each one
-    for (var r=0; r<table.rows.length; r++){
-        var row = table.getRow(r)
-        var lat = row.getNum('latitude')
-        var lng = row.getNum('longitude')
-        var mag = row.getNum('mag')
-        var place = row.getString('place')
-
-        // find the intersection point with the nearest fault
-        var closest = Tectonic.findFault(lat, lng)
-
-        // draw a line connecting the quake to the closest faultline nearby
-        L.polyline([[lat, lng], [closest.latitude, closest.longitude]], {
-            color:'red',
-            weight:1
-        }).bindTooltip(`${closest.distance.toFixed(1)} km from ${closest.name} fault`).addTo(mymap)
-
-        // draw a marker at the location of the quake itself
-        L.circleMarker([lat, lng], {
-            weight:2,
-            color:'red',
-            fillColor:'white',
-            fillOpacity:1,
-            radius:3
-        }).bindTooltip(`<b>${mag.toFixed(1)}</b> · ${place}`).addTo(mymap)
-    }    
-    
-}
-
-
-
-
-function clickZoom(e) {
-    mymap.setView(e.target.getLatLng(),5);
-}
-
-
-// function addRect(){
-
-//     //x
-//     var longitudeMin=columnMin(table,"longitude");
-//     var longitudeMax=columnMax(table,"longitude");
-//     console.log('longitude range:', [longitudeMin, longitudeMax]);
-
-//     //y
-//     var latitudeMin=columnMin(table,"latitude");
-//     var latitudeMax=columnMax(table,"latitude");
-//     console.log('latitude range:', [latitudeMin, latitudeMax]);
-    
-//     console.log("longtitude",longitude)
-//     console.log("latitude",latitude)
-//     console.log("magnitude",magnitude)
-//     console.log("magnitudeInt",magnitudeInt)
-//     console.log("depthInt",depthInt)
-//     console.log("depth",depth)
-
-
-    
-//     // var markers = L.markerClusterGroup();
-    
-//     for (var r=0; r<table.getRowCount(); r++){
-//         var row = table.getRow(r);
-        
-//         // console.log("th2",depthInt)
-//         var bounds= [[row.getNum('latitude'), row.getNum('longitude')],[row.getNum('latitude') + depthInt[r], row.getNum('longitude') +magnitudeInt[r]]];
-//         var rect = L.rectangle( bounds, {color: "#ff7800", weight: 1} ).addTo(mymap);
-//         // var rect = L.rectangle( bounds, {color: magScale(magvalue).hex(),weight:1 }).addTo(mymap);
-//         // var customPopup = "Tooltip<br/><img src='http://joshuafrazier.info/images/maptime.gif' alt='maptime logo gif' width='350px'/>";
-//         // day = time || moment().format('dddd')
-        
-//         // var customPopup = (time[r])
-//         const customPopup=
-//                 "<h4>Timestamp:</h4>"+
-//                 "<h4>"+time[r]+"</h4>" +
-//                 // "<br/>" +
-//                 "<h4>Longitude:</h4>"+
-//                 "<h4>"+longitude[r]+"</h4>"+
-//                 // "<br/>" +
-//                 "<h4>Latitude:</h4>"+
-//                 "<h4>"+latitude[r]+"</h4>";                
+map.on('mouseenter', 'earthquake-circles', function(e) {
+    map.getCanvas().style.cursor = 'pointer';
      
+    var coor1 = e.features[0].geometry.coordinates[0];
+    var coor2 = e.features[0].geometry.coordinates[1];
+    var place = e.features[0].properties.place;
+    var mag = e.features[0].properties.mag;
+    var gap = e.features[0].properties.gap;
+     
+    console.log(coor1)
+    // console.log(depth)
+
+    popup
+    .setLngLat([coor1,coor2])
+    .setHTML(
+      "<h3>Magnitude:</h3>"+"<p>"+ mag +"</p>"+
+      "<h3>Location:</h3>"+"<p>"+ place +"</p>"
+    )
+    .addTo(map);
         
-//         var customOptions =
-//             {
-//             // 'maxWidth': '500px',
-//             'className' : 'custom'
-//             }
-        
-//         // var customPopup2 = (latitude[r])
-//         const customPopup2 =
-//                 "<h4>Magnitude:</h4>"+"<h4>"+ magnitude[r]+"</h4>" +
-//                 // "<br/>" +
-//                 "<h4>Depth:</h4>"+ "<h4>"+ depth[r] + "</h4>";
-        
-        
-        
-//         var customOptions2 =
-//             {
-//             'maxWidth': '500px',
-//             'className' : 'custom2'
-//             }        
-        
-
-            
-//         rect.bindPopup(customPopup2,customOptions2);
-//         marker = L.marker([latitude[r],longitude[r]],{icon: markerIcon}).addTo(mymap).bindPopup(customPopup,customOptions).on('click', clickZoom);
-//         // markers.addLayer(marker)
-            
-//         mymap.fitBounds(bounds);
-        
-
-//     }
-  
-// }
+});
 
 
-
-// function columnMax(tableObject, columnName){
-//     // get the array of strings in the specified column
-//     var colStrings = tableObject.getColumn(columnName);
-
-//     // convert to a list of numbers by running each element through the `float` function
-//     var colValues = _.map(colStrings, float);
-
-//     // find the largest value in the column
-//     return _.max(colValues);
-// }
-
-
-
-// // get the minimum value within a column
-// function columnMin(tableObject, columnName){
-//     // get the array of strings in the specified column
-//     var colStrings = tableObject.getColumn(columnName);
-
-//     // convert to a list of numbers by running each element through the `float` function
-//     var colValues = _.map(colStrings, float);
-
-//     // find the largest value in the column
-//     return _.min(colValues);
-// }
-
-
-// function highlightFeature(e) {
-//     var layer = e.target;
-
-//     layer.setStyle({
-//         weight: 5,
-//         color: '#666',
-//         dashArray: '',
-//         fillOpacity: 0.7
-//     });
-
-//     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-//         layer.bringToFront();
-//     }
-// }
-
-
-
-
-//draw my diagram
-function draw(){
-  background("#ff7800");
-  
-  var top=100;
-  var el=2;//enlarge
-  angleMode(DEGREES);
-  
-  //legend label for earthquakes
-    fill(0);
-    stroke(255);
-    strokeWeight(1);
-    rect(30,top+20,30,30);
-
-    fill(0);
-    noStroke();
-    textSize(12);
-    textFont('PT Mono')
-    text("Magnitude",30, top+10);
-    
-    push();
-    fill(0)
-    translate(20, top+52);
-    rotate(-90);
-    text("Depth", 0, 0);
-    pop();
-    
-  //legend for errors
-    push();
-    fill(255);
-    stroke(255);
-    strokeWeight(1);
-    triangle(30, top+80, 30, top+80+30, 30+20, top+80);
-    pop();
-    
-    fill(255);
-    noStroke();
-    textSize(12);
-    text("magError",30, top+70);
-    
-    push();
-    fill(255)
-    translate(20, top+140);
-    rotate(-90);
-    text("depthError", 0, 0);
-    pop();
-    
-  //legend for time
-    fill(0);
-    noStroke();
-    textSize(12);
-    textFont('PT Mono')
-    text("18:03~22:47",30+80, top+10);
-    text("22:50~04:25",30, top*2+70);
-    text("04:27~10:13",30, top*3+130);
-    text("10:22~16:55",30, top*4+190);
-    // text("16:57~17:54",30, top*5+250);
-
-
-  for (let l1 = 0; l1 < 51; l1++) {
-    depth = table.getNum(l1, 3);// get earthquake's depth
-    mag = table.getNum(l1, 4);// get earthquake's mag
-    depError = table.getNum(l1,16);//get deperror
-    magError = table.getNum(l1,17);//get magerror
-    
-    d = map(depth, -2, 607.78, 1, 20)//depth=>height
-    w = map(mag,0.95,6.1, 1, 20 )//mag=>width
-    de = map(depError, 0, 100, 1, 20)//deptherror
-    me = map(magError, 0.006, 4.4, 1, 20)//magerror
-
-    fill(0);
-    stroke(255);
-    strokeWeight(1);
-    rect(60+30+25*l1,top+20,10*w,10*d);
-    
-    push();
-    fill(255);
-    stroke(255);
-    strokeWeight(1);
-    triangle(60+30+25*l1, top+80, 60+30+25*l1, top+80+de*el, 60+30+25*l1+me*el, top+80);
-    pop();
-  }
-  
- 
-  
-  for (let l1 = 51; l1 < 102; l1++) {
-    depth = table.getNum(l1, 3);// get earthquake's depth
-    mag = table.getNum(l1, 4);// get earthquake's mag
-    depError = table.getNum(l1,16);//get deperror
-    magError = table.getNum(l1,17);//get magerror
-    
-    d = map(depth, -2, 607.78, 1, 20)//depth=>height
-    w = map(mag,0.95,6.1, 1, 20 )//mag=>width
-    de = map(depError, 0, 100, 1, 20)//deptherror
-    me = map(magError, 0.006, 4.4, 1, 20)//magerror
-
-    fill(0);
-    stroke(255);
-    strokeWeight(1);
-    rect(30+25*(l1-51),top*2+80,10*w,10*d);
-    push();
-    fill(255);
-    stroke(255);
-    strokeWeight(1);
-    triangle(30+25*(l1-51), top*2+140, 30+25*(l1-51), top*2+140+de*el, 30+25*(l1-51)+me*el, top*2+140);
-    pop();
-  }
-  
-  for (let l1 = 102; l1 < 153; l1++) {
-    depth = table.getNum(l1, 3);// get earthquake's depth
-    mag = table.getNum(l1, 4);// get earthquake's mag
-    depError = table.getNum(l1,16);//get deperror
-    magError = table.getNum(l1,17);//get magerror
-    
-    d = map(depth, -2, 607.78, 1, 20)//depth=>height
-    w = map(mag,0.95,6.1, 1, 20 )//mag=>width
-    de = map(depError, 0, 100, 1, 20)//deptherror
-    me = map(magError, 0.006, 4.4, 1, 20)//magerror
-
-    fill(0);
-    stroke(255);
-    strokeWeight(1);
-    rect(30+25*(l1-102),top*3+140,10*w,10*d);
-    push();
-    fill(255);
-    stroke(255);
-    strokeWeight(1);
-    triangle(30+25*(l1-102), top*3+200, 30+25*(l1-102), top*3+200+de*el, 30+25*(l1-102)+me*el, top*3+200);
-    pop();
-  }
-  
-  for (let l1 = 153; l1 < 204; l1++) {
-    depth = table.getNum(l1, 3);// get earthquake's depth
-    mag = table.getNum(l1, 4);// get earthquake's mag
-    depError = table.getNum(l1,16);//get deperror
-    magError = table.getNum(l1,17);//get magerror
-    
-    d = map(depth, -2, 607.78, 1, 20)//depth=>height
-    w = map(mag,0.95,6.1, 1, 20 )//mag=>width
-    de = map(depError, 0, 100, 1, 20)//deptherror
-    me = map(magError, 0.006, 4.4, 1, 20)//magerror
-
-    fill(0);
-    stroke(255);
-    strokeWeight(1);
-    rect(30+25*(l1-153),top*4+200,10*w,10*d);
-    push();
-    fill(255);
-    stroke(255);
-    strokeWeight(1);
-    triangle(30+25*(l1-153), top*4+260, 30+25*(l1-153), top*4+260+de*el, 30+25*(l1-153)+me*el, top*4+260);
-    pop();
-  }
-  
-  for (let l1 = 204; l1 < 215; l1++) {
-    depth = table.getNum(l1, 3);// get earthquake's depth
-    mag = table.getNum(l1, 4);// get earthquake's mag
-    depError = table.getNum(l1,16);//get deperror
-    magError = table.getNum(l1,17);//get magerror
-    
-    d = map(depth, -2, 607.78, 1, 20)//depth=>height
-    w = map(mag,0.95,6.1, 1, 20 )//mag=>width
-    de = map(depError, 0, 100, 1, 20)//deptherror
-    me = map(magError, 0.006, 4.4, 1, 20)//magerror
-
-    fill(0);
-    stroke(255);
-    strokeWeight(1);
-    rect(30+25*(l1-204),top*5+260,10*w,10*d);
-    push();
-    fill(255);
-    stroke(255);
-    strokeWeight(1);
-    triangle(30+25*(l1-204), top*5+320, 30+25*(l1-204), top*5+320+de*el, 30+25*(l1-204)+me*el, top*5+320);
-    pop();
-  }
-  
-    
-};
+map.on('mouseleave', 'earthquake-circles', function() {
+    map.getCanvas().style.cursor = '';
+        popup.remove();
+});
+                    
+                
+                

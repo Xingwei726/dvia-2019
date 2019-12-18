@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="188px" height="134px" viewBox="0 0 188 134" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>Group 3</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="A4" transform="translate(-146.000000, -292.000000)">
+            <g id="Group-3" transform="translate(146.000000, 292.000000)">
+                <rect id="Rectangle" fill="#3D4DE0" x="0" y="26" width="128" height="34" rx="1"></rect>
+                <rect id="Rectangle" stroke-opacity="0.85" stroke="#000000" opacity="0.8" x="0.5" y="26.5" width="127" height="63" rx="2"></rect>
+                <text id="Size-/-Depth-of-Eart" font-family="Rubik-Bold, Rubik" font-size="8" font-weight="bold" fill="#000000">
+                    <tspan x="145" y="41">Size /</tspan>
+                    <tspan x="145" y="50" font-family="Rubik-Regular, Rubik" font-weight="normal">Depth of </tspan>
+                    <tspan x="145" y="59" font-family="Rubik-Regular, Rubik" font-weight="normal">Earthquake</tspan>
+                </text>
+                <text id="Color-/-Magnitude" font-family="Rubik-Bold, Rubik" font-size="8" font-weight="bold" fill="#000000">
+                    <tspan x="0" y="7">Color /</tspan>
+                    <tspan x="27.8" y="7" font-family="Rubik-Regular, Rubik" font-weight="normal"> Magnitude</tspan>
+                </text>
+                <text id="Position-/-Depth-Err" font-family="Rubik-Bold, Rubik" font-size="8" font-weight="bold" fill="#000000">
+                    <tspan x="76" y="123">Position /</tspan>
+                    <tspan x="115.808" y="123" font-family="Rubik-Regular, Rubik" font-weight="normal"> </tspan>
+                    <tspan x="76" y="132" font-family="Rubik-Regular, Rubik" font-weight="normal">Depth Error</tspan>
+                </text>
+                <line x1="78.5" y1="26" x2="78.5" y2="90" id="Line" stroke-opacity="0.85" stroke="#000000" stroke-width="2" opacity="0.8"></line>
+                <path id="Line-Copy-2" d="M136.9,25.65 L136.9,26.35 L133.85,26.35 L133.85,59.65 L136.9,59.65 L136.9,60.35 L130.1,60.35 L130.1,59.65 L133.15,59.65 L133.15,26.35 L130.1,26.35 L130.1,25.65 L136.9,25.65 Z" fill="#000000" fill-rule="nonzero"></path>
+                <path id="Line-Copy-4" d="M20.35,13 L20.3507035,39.0172618 C22.2573303,39.2058829 23.75,40.9170046 23.75,43 C23.75,45.209139 22.0710678,47 20,47 C17.9289322,47 16.25,45.209139 16.25,43 C16.25,40.9166431 17.7431877,39.2052891 19.650289,39.0171637 L19.65,13 L20.35,13 Z" fill="#000000" fill-rule="nonzero" opacity="0.8"></path>
+                <path id="Line-Copy-5" d="M78.85,90.5 L78.8507035,108.017262 C80.7573303,108.205883 82.25,109.917005 82.25,112 C82.25,114.209139 80.5710678,116 78.5,116 C76.4289322,116 74.75,114.209139 74.75,112 C74.75,109.916643 76.2431877,108.205289 78.150289,108.017164 L78.15,90.5 L78.85,90.5 Z" fill="#000000" fill-rule="nonzero" opacity="0.8"></path>
+            </g>
+        </g>
+    </g>
+</svg>

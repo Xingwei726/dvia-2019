@@ -19,12 +19,6 @@ var svg = d3.select('#myDiagram')
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-// svg.append('circle')
-//     .attr('cx', 100)
-//     .attr('cy', 600)
-//     .attr('r', 50)
-//     .attr('stroke', 'black')
-//     .attr('fill', '#69a3b2');
   
   
 var day = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29","30"]
@@ -40,7 +34,8 @@ x = d3.scaleBand()
     .call(d3.axisBottom(x).tickSize(0))
     .style("font-size", 12)
     .attr("transform", "translate(0," + height + ")")
-    .style("stroke", '#B5B4B4')
+    .attr("class", "legend")
+    .style("fill", '#B5B4B4')
     .select(".domain").remove()
  
  
@@ -54,7 +49,8 @@ y = d3.scaleBand()
     .style("font-size", 12)
     .call(d3.axisLeft(y).tickSize(0))
     .attr("transform", "translate(" + 1370 + ",0)")
-    .style("stroke", '#B5B4B4')
+    .attr("class", "legend")
+    .style("fill", '#B5B4B4')
     .select(".domain").remove()
 
 
@@ -68,7 +64,7 @@ h = d3.scaleLinear()
   .domain([4, 574])
   .range([1, 20]);
   
-//depth error
+//mag error
 me = d3.scaleLinear()
   .domain([0.023, 0.383])
   .range([1, 20]);  
@@ -76,7 +72,7 @@ me = d3.scaleLinear()
 //depth error
 de = d3.scaleLinear()
   .domain([0.2, 20.7])
-  .range([1, 20]);
+  .range([1, 40]);
 
 
 // Build color scale
@@ -133,7 +129,7 @@ d3.json('data/4.5_month.json', function(d){
       
     var mousemove = function(d) {
         tooltip
-          .html(d.place+ 
+          .html("<b>"+d.place+"</b>"+ 
           "<br>Depth: "+ ""+format(d.depth)+""+" kms"+
           "<br>Magnitude: "+ ""+ d.mag
           )
@@ -164,22 +160,26 @@ d3.json('data/4.5_month.json', function(d){
     tooltip
       .style("opacity", 1)
     d3.select(this)
-      .attr("y2", function(d){
-          return y(d.hour)+de(d.depthError)+40
+      .attr("y1", function(d){
+          return y(d.hour)-10
       })
-      .style("stroke-width", 4)
+      .attr("y2", function(d){
+          return y(d.hour)+30
+      })
+      .style("stroke-width",function(d){
+          return de(d.depthError)
+      })
+      .style("opacity", 0.5)
+
     }
       
     var mousemove2 = function(d) {
         tooltip
-          .html(d.place+ 
+          .html("<b>"+d.place+"</b>"+ 
           "<br>magError: "+ ""+d.magError+
           "<br>depthError: "+ ""+ d.depthError
           )
-        //   .html("<h4>Selected Earthquake</h4>"+ 
-        //   "<br><h4>Depth:</h4>"+ "<h4>"+format(d.depth)+"</h4>"+" <h4>kms</h4>"+
-        //   "<br><h4>Magnitude:</h4>"+ "<h4>"+ d.mag+"</h4>"
-        //   )
+
           .style("left",  d.day*40 + "px")     
           .style("bottom", d + "px");
       }
@@ -188,10 +188,15 @@ d3.json('data/4.5_month.json', function(d){
         tooltip
           .style("opacity", 0)
         d3.select(this)
+          .attr("y1", function(d){
+              return y(d.hour)
+          })
           .attr("y2", function(d){
-              return y(d.hour)+de(d.depthError)
+              return y(d.hour)+20
           })
           .style("stroke-width", 1.5)
+          .style("opacity", 1)
+
       }  
   
   
@@ -252,35 +257,33 @@ d3.json('data/4.5_month.json', function(d){
         .style("stroke-width", 1)
         .style("stroke", "#403b3b")
         .style("fill", "none")
-        .style("opacity", 1)        
+        .style("opacity", 0.8)        
       
       
-    
-
-    // //Draw Error Lines    
-    // svg.selectAll('line')
-    // .data(d)
-    // .enter()
-    // .append("line")
-    //   .attr("class", "errorLine")
-    //   .attr("x1", function(d){
-    //       return x(d.day)+me(d.magError)
-    //   })
-    //   .attr("y1", function(d){
-    //       return y(d.hour)
-    //   })
-    //   .attr("x2", function(d){
-    //       return x(d.day)+me(d.magError)
-    //   })
-    //   .attr("y2", function(d){
-    //       return y(d.hour)+de(d.depthError)
-    //   })
-    //   .style("stroke-width", 1.5)
-    //   .style("stroke", "black")
-    //   .style("opacity", 1)
-    //   .on("mouseover", mouseover2)
-    //   .on("mousemove", mousemove2)
-    //   .on("mouseleave", mouseleave2)
+    //Draw Error Lines    
+    svg.selectAll('line')
+    .data(d)
+    .enter()
+    .append("line")
+      .attr("class", "errorLine")
+      .attr("x1", function(d){
+          return x(d.day)+de(d.depthError)
+      })
+      .attr("y1", function(d){
+          return y(d.hour)
+      })
+      .attr("x2", function(d){
+          return x(d.day)+de(d.depthError)
+      })
+      .attr("y2", function(d){
+          return y(d.hour)+20
+      })
+      .style("stroke-width", 1.5)
+      .style("stroke", "black")
+      .style("opacity", 0.8)
+      .on("mouseover", mouseover2)
+      .on("mousemove", mousemove2)
+      .on("mouseleave", mouseleave2)
 
     
     
@@ -290,15 +293,17 @@ svg.append("text")
 	.attr("y", 0) 
 	.attr("transform", "translate(1340,-7)")
 	.attr("class", "legend")
-	.style("fill", "Black")         
+  .style("font-size", 14)
+	.style("fill", "black")         
 	.text("Hour");
 
 svg.append("text")
 	.attr("x", 0)             
 	.attr("y", 0) 
-	.attr("transform", "translate(30,-800)")
+	.attr("transform", "translate(-20,631)")
 	.attr("class", "legend")
-	.style("fill", "Black")         
+  .style("font-size", 14)
+	.style("fill", "black")       
 	.text("Day");
 
     
