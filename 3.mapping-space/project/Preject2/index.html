@@ -26,66 +26,66 @@
 
 </head>
 
-<body>
+<body style="background-color:#BFCAD6;">
 
     <div id="features">
         <section id="intro" class="active">
-            <h3>Earthquakes</h3>
+            <h3>Measurements of Earthquakes</h3>
             <p>
-            Between            
+            This visualizations captures earthquakes that have happened in the past month, from 11/16/2019 To 12/15/2019. You may use the slider on the left to filter out earthquakes that happened during each day or scroll down to read more about earthquake meansurements.          
             </p>
         </section>
         
         <section id="magnitude">
-            <h3>Largest Magnitude</h3>
+            <h3>Magnitude 6.8</h3>
             <p>
-            The largest azimuthal gap between azimuthally adjacent stations (in degrees). In general, the smaller this number, the more reliable is the calculated horizontal position of the earthquake. Earthquake locations in which the azimuthal gap exceeds 180 degrees typically have large location and depth uncertainties.
-
+            The largest earthquake (in terms of magnitude) that happened during this past month was 6km south of Magsaysay, Philippines. It's magnitude is 6.8, an earthquake which maginitude is between 6.1 ~ 6.9, may cause a lot of damage in very populated areas.	
             </p>
         </section>
         
         <section id="depth">
-            <h3>Depthest</h3>
+            <h3>Depth 614.01km</h3>
             <p>
-                Holmes and Watson's investigations take them across London. Sherlock
-                deduces that West was murdered elsewhere, then moved to Aldgate
-                Station to create the illusion that he was crushed on the tracks by
-                a train. On their way to Woolwich Sherlock dispatches a telegram to
-                Mycroft at London Bridge: "Send list of all foreign spies known to
-                be in England, with full address."
+            The depth measures where the earthquake begins to rupture. The 'deepest' earthquake which has happened during this past month was at south of the Fiji Islands, with a depth of 614.01km and a magnitude of 5.5. Sometimes when depth is poorly constrained by available seismic data, the location program will set the depth at a fixed value. For example, 33 km is often used as a default depth for earthquakes determined to be shallow, but whose depth is not satisfactorily determined by the data, whereas default depths of 5 or 10 km are often used in mid-continental areas and on mid-ocean ridges since earthquakes in these areas are usually shallower than 33 km.
             </p>
         </section>
-        <section id="gap">
-            <h3>Largest Gap</h3>
+        
+        <section id="negDepth">
+            <h3>Negative Depth?</h3>
             <p>
-                While investigating at Woolwich Arsenal Sherlock learns that West
-                did not have the three keys&mdash;door, office, and
-                safe&mdash;necessary to steal the papers. The train station clerk
-                mentions seeing an agitated West boarding the 8:15 train to London
-                Bridge. Sherlock suspects West of following someone who had access
-                to the Woolwich chief's keyring with all three keys.
+            On Dec 12th, an earthquake with 1.89 maginitude and -3.76km depth happened in 28km east of Honaunau-Napoopoo, Hawaii. How can an earthquake have a negative depth? </br>
+            Sometimes, because of the density of the seismic network and the close proximity of the seismic stations to an earthquake epicenter, we are able to determine a very precise depth. When the earthquake depth is very shallow, it can be reported as a negative depth.
             </p>
         </section>
-        <section id="error1">
-            <h3>magError</h3>
+        
+        <section id="magError">
+            <h3>What's magError?</h3>
             <p>
-                Mycroft responds to Sherlock's telegram and mentions several spies.
-                Hugo Oberstein of 13 Caulfield Gardens catches Sherlock's eye. He
-                heads to the nearby Gloucester Road station to investigate and
-                learns that the windows of Caulfield Gardens open over rail tracks
-                where trains stop frequently.
+            MagError measures the uncertainty of reported magnitude of the event. The estimated standard error of the magnitude. It's value varies between 1 and 100. Smaller numbers reflect a better certainty of the data. 
+            The uncertainty corresponds to the specific magnitude type being reported and does not take into account magnitude variations and biases between different magnitude scales.
+            For example this magError of this earthquake is 1.34. During this passed month, the largest value of magError of all the earthquake which have happened is 5.31.
             </p>
         </section>
-        <section id="end">
-            <h3>depthError</h3>
+        
+        <section id="depthError">
+            <h3>What's depthError?</h3>
             <p>
-                Holmes deduces that the murderer placed West atop a stopped train at
-                Caulfield Gardens. The train traveled to Aldgate Station before
-                West's body finally toppled off. Backtracking to the criminal's
-                apartment, Holmes finds a series of classified ads from
-                <em>The Daily Telegraph</em> stashed away. All are under the name
-                Pierrot: "Monday night after nine. Two taps. Only ourselves. Do not
-                be so suspicious. Payment in hard cash when goods delivered."
+            Similar to magError, depthError represents uncertainty of reported depth of the event in kilometers. It's value varies between 1 and 100. Smaller numbers reflect a better certainty of the data.
+            During this passed month, the largest value of depthError of all the earthquake which have happened is 8608.9km.
+            </p>
+        </section>
+        
+        <section id="station">
+            <h3>Seismic Stations</h3>
+            <p>
+            There are about hundreds of seismic stations around the world. This Palmer Station at Antarctica is one of them. To locate the epicenter of an earthquake, scientists must have seismograms from at least THREE seismic stations.
+            </p>
+        </section>
+        
+        <section id="origin">
+            <h3>End</h3>
+            <p>
+            There are about hundreds of seismic stations around the world. To locate the epicenter of an earthquake, scientists must have seismograms from at least THREE seismic stations.
             </p>
         </section>
 
@@ -96,7 +96,7 @@
     
     <div class="map-overlay top">
         <div class="map-overlay-inner">
-            <h2>Earthquakes Happened In One Month</h2>
+            <h2>Earthquakes Happened In the Passed Month</h2>
             <!--<h2>11/16/2019 To 12/15/2019</h2>-->
             <label id="date"></label>
             <input id="slider" type="range" min="1" max="30" step="0" value="1" />
@@ -112,6 +112,7 @@
     </div>
  
     <div id='myDiagram'></div>
+    <!--<div id='tooltip'></div>-->
 
     
     

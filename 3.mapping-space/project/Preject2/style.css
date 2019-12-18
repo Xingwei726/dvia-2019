@@ -41,7 +41,7 @@ body {
 .map-overlay .legend .bar {
   height: 10px;
   width: 100%;
-  background: linear-gradient(to right, #ff7800, #3D4DE0);
+  background: linear-gradient(to right, #3D4DE0, #ff7800);
 }
  
 .map-overlay input {
@@ -59,7 +59,7 @@ body {
   margin-left: 70%;
   font-family: sans-serif;
   overflow-y: scroll;
-  background-color: #fafafa;
+  background-color: #BFCAD6;
   display:absolute;
 }
 
@@ -95,6 +95,12 @@ h3 {
   line-height: 10px;
 }
 
+h4 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 600; 
+}
+
 
 .mapboxgl-popup {
   max-width: 200px;
@@ -113,14 +119,26 @@ h3 {
 
 
 #myDiagram {
-  position: -webkit-sticky; /* Safari */
+  position: -webkit-sticky;
   position: sticky;
-  top: 0;  
+  /*top: 0;  */
   z-index: 3;
+  /*padding-top: 300px;*/
+  /*margin-top: 300px;*/
+  
+}
+
+.tooltip{
+  display:absolute;
+  margin-top:-800px;
+  margin-left: 30px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 14px;
+
 }
 
 
 .legend{
   width: 100%;
-  margin-right: 285px;
+  margin-right: 280px;
 }

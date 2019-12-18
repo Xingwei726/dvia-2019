@@ -1,6 +1,6 @@
 var dates = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29","30","31" ];
 
-
+//mapbox setup
 mapboxgl.accessToken = "pk.eyJ1IjoiaHVhbng0MjkiLCJhIjoiY2szMzRzNHpqMGpiZDNib3EzbGgweHR0eSJ9.FbzMgwMQ7oL8uqZBSJqF2A";
 var map = new mapboxgl.Map({
     container: 'map',
@@ -12,6 +12,7 @@ var map = new mapboxgl.Map({
     pitch: 0
 });
 
+//mapbox add control icon
 map.addControl(
     new mapboxgl.GeolocateControl({
         positionOptions: {
@@ -21,54 +22,70 @@ map.addControl(
     })
 );
 
-
 map.addControl(new mapboxgl.FullscreenControl());
 
 
-var chapters = {
+//significant earthquakes
+var significant = {
     'intro': {
         // bearing: 27,
         bearing: 0,
-        center: [-64.9385, 17.9101],
+        center: [31.4606, 20.7927],//lng, lat
         zoom: 0.5,
         pitch: 0
     },
     'magnitude': {
         duration: 6000,
-        center: [-0.07571203, 51.51424049],
+        center: [125.1884, 6.7078],
         bearing: 150,
-        zoom: 15,
+        zoom: 5,
         pitch: 0
     },
     'depth': {
         bearing: 90,
-        center: [-0.08533793, 51.50438536],
-        zoom: 13,
+        center: [178.3264,-26.6111],
+        zoom: 5,
         speed: 0.6,
-        pitch: 40
+        pitch: 10
     },
-    'gap': {
+    'negDepth': {
         bearing: 90,
-        center: [0.05991101, 51.48752939],
-        zoom: 12.3
+        center: [-155.5966644, 19.4746666],
+        zoom: 5,
+        speed: 0.5
+        
     },
-    'error1': {
+    'magError': {
+        bearing: 90,
+        center: [-120.3511, 39.4663],
+        zoom: 5,
+        pitch: 0,
+        speed: 0.5
+    },
+    'depthError': {
         bearing: 45,
-        center: [-0.18335806, 51.49439521],
-        zoom: 15.3,
+        center: [-155.5070038, 19.4963341],
+        zoom: 5,
         pitch: 20,
         speed: 0.5
     },
-    'end': {
+    'station': {
         bearing: 0,
-        center: [-64.9385, 17.9101],
+        center:  [-64.049, -64.774],
+        zoom: 0.5,
+        pitch: 0
+    },
+    'origin': {
+        bearing: 0,
+        center:  [31.4606, 20.7927],
         zoom: 0.5,
         pitch: 0
     }
 };
 
+//scroll setup
 window.onscroll = function () {
-    var chapterNames = Object.keys(chapters);
+    var chapterNames = Object.keys(significant);
     for (var i = 0; i < chapterNames.length; i++) {
         var chapterName = chapterNames[i];
         if (isElementOnScreen(chapterName)) {
@@ -81,7 +98,7 @@ window.onscroll = function () {
 var activeChapterName = 'intro';
 function setActiveChapter(chapterName) {
     if (chapterName === activeChapterName) return;
-    map.flyTo(chapters[chapterName]);
+    map.flyTo(significant[chapterName]);
     document.getElementById(chapterName).setAttribute('class', 'active');
     document.getElementById(activeChapterName).setAttribute('class', '');
     activeChapterName = chapterName;
@@ -97,12 +114,7 @@ function isElementOnScreen(id) {
 
 
 
-
-
-
-
-
-
+//Day Slider Setup
 function filterBy(date) {
     var filters = ['==', 'date', date];
     map.setFilter('earthquake-circles', filters);
@@ -113,7 +125,7 @@ function filterBy(date) {
 
 
 
-
+//Draw markers on Map
 map.on('load', function () {
     d3.json('data/all.geojson', function (err, data) {
         
@@ -130,7 +142,6 @@ map.on('load', function () {
                 data: data
             });
 
-
             map.addLayer({
                 'id': 'earthquake-circles',
                 'type': 'circle',
@@ -140,9 +151,9 @@ map.on('load', function () {
                         ['linear'],
                         ['get', 'mag'],
                         -1.38,
-                        '#ff7800',
+                        '#3D4DE0',
                         6.8,
-                        '#3D4DE0'
+                        '#ff7800'
                     ],
 
                     'circle-opacity': 1,
@@ -230,7 +241,8 @@ map.on('load', function () {
             // }  
             
         });
-        
+
+       
 //Add Earthquake fault lines        
         map.addSource('faults', {
           'type': 'geojson',
@@ -243,11 +255,57 @@ map.on('load', function () {
           'paint': {
             'line-color': '#7d756a',
             }
-        })       
+        })  
+        
+        
+//Add Significant markers        
+        map.addSource('marks', {
+            'type': 'geojson',
+            'data': 'data/significantMarks.geojson'
+        });
+        // map.addLayer({
+        //   'id': 'marks',
+        //   'type': 'line',
+        //   'source': 'faults',
+        //   'paint': {
+        //     'line-color': '#7d756a',
+        //     }
+        // }) 
+        
+        map.addLayer({
+                'id': 'significant',
+                'type': 'circle',
+                'source': 'marks',
+                'paint': {
+                    'circle-color': '#ff2a00',
+
+                    'circle-opacity': 1,
+                    'circle-radius': 5
+                }
+            });
+
+        
+        // var geojson2=
+        
+        //   geojson2.features.forEach(function(marker) {
+        
+        //   // create a HTML element for each feature
+        //   var el = document.createElement('div');
+        //   el.className = 'marker';
+        
+        //   // make a marker for each feature and add to the map
+        //   new mapboxgl.Marker(el)
+        //     .setLngLat(marker.geometry.coordinates)
+        //     .addTo(map);
+        // });
+        
+        
        
 });
 
 
+
+//Popup Window Setup
 var popup = new mapboxgl.Popup({
     closeButton: false,
     closeOnClick: false
@@ -272,7 +330,6 @@ map.on('mouseenter', 'earthquake-circles', function(e) {
       "<h3>Magnitude:</h3>"+"<p>"+ mag +"</p>"+
       "<h3>Location:</h3>"+"<p>"+ place +"</p>"
     )
-    
     .addTo(map);
         
 });
