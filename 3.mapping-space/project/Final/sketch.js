@@ -42,28 +42,28 @@ var significant = {
         pitch: 0
     },
     'depth': {
-        bearing: 90,
+        bearing: 0,
         center: [178.3264,-26.6111],
         zoom: 5,
         speed: 0.5,
         pitch: 10
     },
     'negDepth': {
-        bearing: 90,
+        bearing: 0,
         center: [-155.5966644, 19.4746666],
         zoom: 5,
         speed: 0.5
         
     },
     'magError': {
-        bearing: 90,
+        bearing: 0,
         center: [-120.3511, 39.4663],
-        zoom: 5,
+        zoom: 10,
         pitch: 0,
         speed: 0.5
     },
     'depthError': {
-        bearing: 45,
+        bearing: 0,
         center: [-155.5070038, 19.4963341],
         zoom: 5,
         pitch: 20,
@@ -168,6 +168,7 @@ map.on('load', function () {
                     ]
                 }
             });
+            
 
 
             // map.addLayer({
@@ -244,26 +245,7 @@ map.on('load', function () {
             'type': 'geojson',
             'data': 'data/significantMarks.geojson'
         });
-        // map.addLayer({
-        //   'id': 'marks',
-        //   'type': 'line',
-        //   'source': 'faults',
-        //   'paint': {
-        //     'line-color': '#7d756a',
-        //     }
-        // }) 
-        
-        // map.addLayer({
-        //         'id': 'significant',
-        //         'type': 'circle',
-        //         'source': 'marks',
-        //         'paint': {
-        //             'circle-color': '#ff2a00',
 
-        //             'circle-opacity': 1,
-        //             'circle-radius': 5
-        //         }
-        //     });
         map.loadImage(
             'marker.png',
             function(error, image) {
@@ -305,19 +287,29 @@ map.on('mouseenter', 'earthquake-circles', function(e) {
     var coor1 = e.features[0].geometry.coordinates[0];
     var coor2 = e.features[0].geometry.coordinates[1];
     var place = e.features[0].properties.place;
+    var felt = e.features[0].properties.felt;
     var mag = e.features[0].properties.mag;
     var gap = e.features[0].properties.gap;
      
     console.log(coor1)
     // console.log(depth)
 
+    // popup
+    // .setLngLat([coor1,coor2])
+    // .setHTML(
+    //   "<h3>Location:</h3>"+"<p>"+ place +"</p>"+
+    //   "<h3>Magnitude:</h3>"+"<p>"+ mag +"</p>"
+    // )
+    // .addTo(map);
     popup
     .setLngLat([coor1,coor2])
     .setHTML(
-      "<h3>Magnitude:</h3>"+"<p>"+ mag +"</p>"+
-      "<h3>Location:</h3>"+"<p>"+ place +"</p>"
+      "Location: "+ place +"<br/>"+
+      "Magnitude: "+ mag
     )
     .addTo(map);
+    
+    
         
 });
 

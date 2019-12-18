@@ -224,8 +224,9 @@ d3.json('data/4.5_month.json', function(d){
           return h(d.depth)
       })
       .attr("width", 40)
-      .style("fill",function(d){
-          return myColor(d.mag)
+      // .style("fill","black")
+      .style("fill", function(d){
+        return myColor(d.mag)
       })
       .style("stroke-width", 4)
       .style("stroke", "none")

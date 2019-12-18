@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Create a time slider</title>
+    <title>Measurements of Earthquakes</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css' rel='stylesheet' />
@@ -42,7 +42,7 @@
             </svg>            
             
             <p>
-            This visualization captures earthquakes that have happened in the past month, from <em>11/16/2019</em> To <em>12/15/2019</em>. </br> You may use the slider on the left to filter out earthquakes that have happened during each day or scroll down to read more about earthquake meansurements.          
+            This visualization captures earthquakes that have happened in the past month, from <em>11/16/2019</em> to <em>12/15/2019</em>. </br> You may use the slider on the left to view earthquakes that have happened during each day or scroll down to read more about earthquake measurements.          
             </p>
         </section>
         
@@ -51,12 +51,13 @@
             <p>
             The largest earthquake ( in terms of magnitude ) that happened during this past month was at 6km south of Magsaysay, Philippines (<em>12/15/2019</em>). It's magnitude was 6.8, a total of 84 people were injured in the earthquakea and a 6-year-old girl was killed during this earthquake. An earthquake which maginitude is between 6.1 ~ 6.9, may cause a lot of damage in very populated areas.	
             </p>
+            <img class="picture" src="news.jpg">
         </section>
         
         <section id="depth">
             <h2>Depth 614.01km</h2>
             <p>
-            The depth measures where the earthquake begins to rupture. The 'deepest' earthquake which has happened during this past month was at south of the Fiji Islands <em>11/30/2019</em>, with a depth of 614.01km and a magnitude of 5.5. 
+            The depth measures where the earthquake begins to rupture. In general, deeper earthquakes are less damaging because their energy dissipates before it reaches the surface. The 'deepest' earthquake which has happened during this past month was at south of the Fiji Islands <em>11/30/2019</em>, with a depth of 614.01km and a magnitude of 5.5. 
             <br/>Sometimes when depth is poorly constrained by available seismic data, the location program will set the depth at a fixed value. For example, 33 km is often used as a default depth for earthquakes determined to be shallow, but whose depth is not satisfactorily determined by the data, whereas default depths of 5 or 10 km are often used in mid-continental areas and on mid-ocean ridges since earthquakes in these areas are usually shallower than 33 km.
             </p>
         </section>
@@ -120,13 +121,13 @@
             <h2>Earthquakes Happened In the Passed Month</h2>
             <!--<h2>11/16/2019 To 12/15/2019</h2>-->
             <label id="date"></label>
-            <input id="slider" type="range" min="1" max="30" step="1" value="0" />
+            <input id="slider" type="range" min="0" max="30" step="0" value="1" />
         </div>
         <div class="map-overlay-inner">
             <div id="legend" class="legend">
                 <div> Magnitude </div>
                 <div class="bar"></div>
-                <span class="legend">Low</span> <span> High</span>
+                <span class="legend">Small</span> <span> Large</span>
 
             </div>
         </div>
